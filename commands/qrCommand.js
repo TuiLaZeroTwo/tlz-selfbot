@@ -44,5 +44,5 @@ module.exports = (client, config) => {
     }
   });
 
-  logger.info('QR Handler initialized');
+  logger.info('QR Command initialized');
 };

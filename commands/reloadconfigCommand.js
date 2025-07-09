@@ -36,5 +36,5 @@ module.exports = (client, config) => {
     }
   });
 
-  logger.info('reloadConfigHandler initialized');
+  logger.info('Reload Config Command initialized');
 };

@@ -2,6 +2,38 @@ module.exports = {
   token: "", //put your token here
   ownerID: "",// put your user id here
   prefix: "-", // your prefix, can be anything you want
+  rotatestatus: {
+    enabled: true,
+    interval: 10000, // 10 seconds
+    emoji: {
+      "0": "💬",
+      "1": "🌟",
+      "2": "🔥",
+      "3": "❤️",
+      "4": "😊",
+      "5": "😎",
+      "6": "🤖",
+      "7": "🎉",
+      "8": "🚀",
+      "9": "💡",
+      "10": "🌈",
+      "11": "✨"
+    },
+    message: {
+      "0": "i love lan thi",
+      "1": "fall in love with cat/ntwlie",
+      "2": "be kind to others",
+      "3": "help those in need",
+      "4": "spread positivity",
+      "5": "make the world a better place",
+      "6": "be the change you want to see",
+      "7": "embrace diversity",
+      "8": "respect all beings",
+      "9": "live and let live",
+      "10": "find joy in small things",
+      "11": "appreciate the beauty around you",
+    },
+  },
   rpc: {
     enabled: true,
     mode: "", // "weather", "rpc", "none"

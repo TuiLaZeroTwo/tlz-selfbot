@@ -1,19 +1,31 @@
 const { Client } = require('discord.js-selfbot-v13');
 const config = require('./config');
+//Handlers
 const voiceHandler = require('./handlers/voiceHandler');
-const qrCommand = require('./commands/qrCommand')
 const autoReactHandler = require('./handlers/autoReactHandler');
-const reloadconfigCommand = require('./commands/reloadconfigCommand')
+//Commands
+const hoststatusCommand = require('./commands/hoststatusCommand');
+const clearCommand = require('./commands/clearCommand');
+const qrCommand = require('./commands/qrCommand')
+const reloadconfigCommand = require('./commands/reloadconfigCommand');
+//Utilities
+const rotatestatus = require('./utils/rotatestatus');
 const rpcUtil = require('./utils/rpcUtil');
 const logger = require('./utils/logger');
 
 const client = new Client({ checkUpdate: false });
 
+//Handlers
 if (config.voice.enabled) voiceHandler(client, config);
-if (config.qr.enabled) qrCommand(client, config);
 if (config.auto_react.enabled) autoReactHandler(client, config);
+//Commands
+if (config.qr.enabled) qrCommand(client, config);
 if (config.reloadconfig.enabled) reloadconfigCommand(client, config);
+if (config.hoststatus.enabled) hoststatusCommand(client, config);
+if (config.clear.enabled) clearCommand(client, config);
+//Utilities
 if (config.rpc.enabled) rpcUtil(client, config);
+if (config.rotatestatus.enabled) rotatestatus(client, config);
 
 client.on('ready', () => {
   logger.success(`🟢 Logged as ${client.user.tag}`);
