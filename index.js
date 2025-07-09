@@ -9,9 +9,9 @@ const clearCommand = require('./commands/clearCommand');
 const qrCommand = require('./commands/qrCommand')
 const reloadconfigCommand = require('./commands/reloadconfigCommand');
 //Utilities
-const rotatestatus = require('./utils/rotatestatus');
-const rpcUtil = require('./utils/rpcUtil');
 const logger = require('./utils/logger');
+//Managers
+const presenceManager = require('./managers/presenceManager'); 
 
 const client = new Client({ checkUpdate: false });
 
@@ -24,8 +24,9 @@ if (config.reloadconfig.enabled) reloadconfigCommand(client, config);
 if (config.hoststatus.enabled) hoststatusCommand(client, config);
 if (config.clear.enabled) clearCommand(client, config);
 //Utilities
-if (config.rpc.enabled) rpcUtil(client, config);
-if (config.rotatestatus.enabled) rotatestatus(client, config);
+//if (config.rpc.enabled) rpcUtil(client, config);
+//Managers
+presenceManager(client, config);
 
 client.on('ready', () => {
   logger.success(`🟢 Logged as ${client.user.tag}`);

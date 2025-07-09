@@ -2,6 +2,12 @@ module.exports = {
   token: "", //put your token here
   ownerID: "",// put your user id here
   prefix: "-", // your prefix, can be anything you want
+    clear: {
+    enabled: true,
+  },
+  hoststatus: {
+    enabled: true,
+  },
   rotatestatus: {
     enabled: true,
     interval: 10000, // 10 seconds
