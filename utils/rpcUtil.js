@@ -31,9 +31,6 @@ module.exports = async (client, config) => {
        }
         rpcBuilder.setButtons(buttons);
     }
-    if (config.rpc.type === 1 && config.rpc.url) {
-      rpcBuilder.setUrl(config.rpc.url);
-    }
     rpcPayload = rpcBuilder.toJSON();
     logger.info(`RPC Mode: ${mode}`);
   }
@@ -66,7 +63,7 @@ module.exports = async (client, config) => {
   client.on('ready', async () => {
         if (rpcPayload) {
             try {
-                await client.user.setActivity(rpcPayload);
+                await client.user.setPresence(rpcPayload);
                 logger.success(`RPC is active with mode: "${mode}"`);
             } catch (error) {
                 logger.error(`Failed to set RPC activity for mode "${mode}":`, error);
