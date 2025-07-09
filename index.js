@@ -7,6 +7,8 @@ const autoReactHandler = require('./handlers/autoReactHandler');
 const hoststatusCommand = require('./commands/hoststatusCommand');
 const clearCommand = require('./commands/clearCommand');
 const qrCommand = require('./commands/qrCommand')
+const helpCommand = require('./commands/helpCommand');
+const pingCommand = require('./commands/pingCommand');
 //Utilities
 const logger = require('./utils/logger');
 //Managers
@@ -21,6 +23,9 @@ if (config.auto_react.enabled) autoReactHandler(client, config);
 if (config.qr.enabled) qrCommand(client, config);
 if (config.hoststatus.enabled) hoststatusCommand(client, config);
 if (config.clear.enabled) clearCommand(client, config);
+if (config.ping.enabled) pingCommand(client, config);
+if (config.help.enabled) helpCommand(client, config);
+
 //Managers
 presenceManager(client, config);
 

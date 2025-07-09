@@ -2,7 +2,13 @@ module.exports = {
   token: "", //put your token here
   ownerID: "",// put your user id here
   prefix: "-", // your prefix, can be anything you want
-    clear: {
+  help: {
+    enabled: true, 
+  },
+  ping: {
+    enabled: true,
+  },
+  clear: {
     enabled: true,
   },
   hoststatus: {
@@ -67,9 +73,6 @@ module.exports = {
     bankid: "970422",
     style: "compact2",
     accountname: "HUYNH HUU LONG"
-  },
-  reloadconfig: {
-    enabled: "true"
   },
   voice: {
     enabled: false,
