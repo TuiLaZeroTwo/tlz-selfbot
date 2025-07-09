@@ -7,7 +7,6 @@ const autoReactHandler = require('./handlers/autoReactHandler');
 const hoststatusCommand = require('./commands/hoststatusCommand');
 const clearCommand = require('./commands/clearCommand');
 const qrCommand = require('./commands/qrCommand')
-const reloadconfigCommand = require('./commands/reloadconfigCommand');
 //Utilities
 const logger = require('./utils/logger');
 //Managers
@@ -20,11 +19,8 @@ if (config.voice.enabled) voiceHandler(client, config);
 if (config.auto_react.enabled) autoReactHandler(client, config);
 //Commands
 if (config.qr.enabled) qrCommand(client, config);
-if (config.reloadconfig.enabled) reloadconfigCommand(client, config);
 if (config.hoststatus.enabled) hoststatusCommand(client, config);
 if (config.clear.enabled) clearCommand(client, config);
-//Utilities
-//if (config.rpc.enabled) rpcUtil(client, config);
 //Managers
 presenceManager(client, config);
 
