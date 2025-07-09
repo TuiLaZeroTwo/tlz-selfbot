@@ -1,0 +1,49 @@
+module.exports = {
+  token: "", //put your token here
+  ownerID: "",// put your user id here
+  prefix: "-", // your prefix, can be anything you want
+  rpc: {
+    enabled: true,
+    mode: "", // "weather", "rpc", "none"
+    name: "tlz services",
+    url: "twitch.tv/tlzytb",
+    type: 0,
+    application_id: "1204053320629624893", // you can skip this
+    client_id: "1204053320629624893", // idk wtf to do with this
+    details: "be your own self",
+    state: "but don't be a jerk",
+    large_image: "https://cdn.discordapp.com/banners/339831176762097664/61f0dccaafa3566685c315925581e5d5.png?size=4096", //only link because im fixing the app id
+    large_image_text: "Cool huh",
+    small_image: "https://cdn.discordapp.com/avatars/339831176762097664/f8204747043c075a9a8e9a2375565330.png?size=512",  //only link because im fixing the app id
+    small_image_text: "Powered by tlz",
+    buttons: {
+      name1: "Free Hosting",
+      url1: "https://dsc.gg/xmxd",
+      name2: "GitHub Profile",
+      url2: "https://github.com/tuilazerotwo"
+    }
+  },
+  qr: {
+    enabled: true,
+    addrinfo: "hhlong209",
+    bankid: "970422",
+    style: "compact2",
+    accountname: "HUYNH HUU LONG"
+  },
+  reloadconfig: {
+    enabled: "true"
+  },
+  voice: {
+    enabled: false,
+    channel_id: "1391926171251380305", //put your voice channel id here
+    self_deaf: false,
+    self_mute: true
+  },
+  auto_react: {
+    enabled: false,
+    reactions: {
+      "1215484798269923399": ["🔥", "❤️"],
+      "1368980718893662258": ["🔥", "❤️"]
+    }
+  }
+};
