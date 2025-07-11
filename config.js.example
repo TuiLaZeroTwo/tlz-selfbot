@@ -1,7 +1,13 @@
 module.exports = {
+  website: {
+    port: 3000, // enter the port you want
+  },
   token: "", //put your token here
   ownerID: "",// put your user id here
   prefix: "-", // your prefix, can be anything you want
+    "userinfo": {
+    "enabled": true
+  },
   help: {
     enabled: true, 
   },
