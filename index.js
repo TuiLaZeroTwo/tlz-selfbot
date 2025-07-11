@@ -19,7 +19,7 @@ const presenceManager = require('./managers/presenceManager');
 const client = new Client({ checkUpdate: false });
 
 //Handlers
-websiteHandler.startWebsite(config.website);
+if (config.website.enabled) websiteHandler.startWebsite(config.website);
 if (config.voice.enabled) voiceHandler(client, config);
 if (config.auto_react.enabled) autoReactHandler(client, config);
 //Commands

@@ -1,5 +1,6 @@
 module.exports = {
   website: {
+    enabled: true, // set to false if you don't want to run the website, may add login soon :tm:
     port: 3000, // enter the port you want
   },
   token: "", //put your token here
