@@ -17,6 +17,7 @@
     "discord.js-selfbot-v13": "^3.6.1",
     "next": "15.3.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "uglifyts": "^0.0.1"
   }
 }

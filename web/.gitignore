@@ -1,6 +1,6 @@
 # Ignore specific sensitive files
-src/api/login/route.ts
-src/middleware.ts
+src/app/api/login/route-org.ts
+src/middleware-org.ts
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
