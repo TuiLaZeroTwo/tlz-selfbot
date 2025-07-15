@@ -1,0 +1,3 @@
+module.exports = {
+    "secretkey": "mysecret", // change this and dont give anyone 
+}
