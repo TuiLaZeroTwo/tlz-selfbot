@@ -11,6 +11,7 @@ const userinfoCommand = require('./commands/userinfoCommand');
 const qrCommand = require('./commands/qrCommand')
 const helpCommand = require('./commands/helpCommand');
 const pingCommand = require('./commands/pingCommand');
+const genCommand = require('./commands/genCommand');
 //Utilities
 const logger = require('./utils/logger');
 //Managers
@@ -29,6 +30,7 @@ if (config.clear.enabled) clearCommand(client, config);
 if (config.ping.enabled) pingCommand(client, config);
 if (config.help.enabled) helpCommand(client, config);
 if (config.userinfo.enabled) userinfoCommand(client, config);
+if (config.gen.enabled) genCommand(client, config);
 //Managers
 presenceManager(client, config);
 

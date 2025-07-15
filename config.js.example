@@ -2,10 +2,6 @@ module.exports = {
   website: {
     "enabled": true,
     "port": 6969,
-    "account": {
-      "username": "admin", // edit nay nha ae
-      "password": "admin123"// edit this too
-    },
   },
   token: "", //put your token here
   ownerID: "",// put your user id here
