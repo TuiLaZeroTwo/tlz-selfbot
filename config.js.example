@@ -1,12 +1,16 @@
 module.exports = {
   website: {
-    enabled: true, // set to false if you don't want to run the website, may add login soon :tm:
-    port: 3000, // enter the port you want
+    "enabled": true,
+    "port": 6969,
+    "account": {
+      "username": "admin", // edit nay nha ae
+      "password": "admin123"// edit this too
+    },
   },
   token: "", //put your token here
   ownerID: "",// put your user id here
   prefix: "-", // your prefix, can be anything you want
-    "userinfo": {
+  userinfo: {
     "enabled": true
   },
   help: {
