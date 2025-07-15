@@ -1,5 +1,3 @@
-web/
 node_modules/
 config.js
 package-lock.json
-handlers/websiteHandler.js
