@@ -4,6 +4,13 @@ a simple selfbot for discord
 ## How to use
 rename the config.js.example to config.js, there's guide in the file
 
+## Edit website?
+you can edit whatever you want the 
+```batch
+cd web
+npm run build
+```
+
 ## How to get token?
 ```js
 window.webpackChunkdiscord_app.push([
