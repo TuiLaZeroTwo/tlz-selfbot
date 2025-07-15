@@ -1,3 +1,5 @@
 node_modules/
 config.js
 package-lock.json
+web/src/api/login/route.ts
+web/src/middleware.ts

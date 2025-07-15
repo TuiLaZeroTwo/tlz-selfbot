@@ -6,6 +6,7 @@ interface Config {
   token: string;
   ownerID: string;
   prefix: string;
+  userinfo: {enabled: boolean };
   help: { enabled: boolean };
   ping: { enabled: boolean };
   clear: { enabled: boolean };
@@ -56,6 +57,7 @@ export default function Home() {
     token: '',
     ownerID: '',
     prefix: '',
+    userinfo: { enabled: false },
     help: { enabled: false },
     ping: { enabled: false },
     clear: { enabled: false },
@@ -243,7 +245,6 @@ export default function Home() {
       ) {
         const subSectionValue = (sectionValue as Record<string, unknown>)[subSection];
         if (typeof subSectionValue === 'object' && subSectionValue !== null) {
-          // Remove the key without assigning to a variable to avoid unused var warning
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { [key]: _, ...rest } = subSectionValue as Record<string, unknown>;
           return {
@@ -308,7 +309,7 @@ export default function Home() {
           </div>
 
           {/* Simple boolean sections */}
-          {['help', 'ping', 'clear', 'hoststatus'].map((section) => (
+          {['userinfo', 'help', 'ping', 'clear', 'hoststatus' ].map((section) => (
             <div key={section} className="border-t pt-4">
               <h2 className="text-lg font-semibold capitalize">{section}</h2>
               <label className="flex items-center space-x-2">
