@@ -14,6 +14,7 @@ import { CriticalEventHandler } from "../handlers/CriticalEventHandler.js";
 import { stealthManager } from "../utils/stealth.js";
 import { inventoryCache, responseCache } from "../utils/cache.js";
 import { defaultRetryManager } from "../utils/retry.js";
+import { errorRecoveryManager } from "../utils/recovery.js";
 export class BaseAgent {
     rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
     miraiID = "1205422490969579530";
