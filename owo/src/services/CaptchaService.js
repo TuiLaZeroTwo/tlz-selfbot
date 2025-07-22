@@ -161,30 +161,44 @@ export class CaptchaService {
     static async handleCaptcha(params, message, retries = 0) {
         const { agent } = params;
         const normalizedContent = message.content.normalize("NFC").replace(NORMALIZE_REGEX, "");
-        const maxRetries = 1;
+        const maxRetries = 2;
         const captchaService = new CaptchaService({
             provider: agent.config.captchaAPI,
             apiKey: agent.config.apiKey,
         });
         const notificationService = new NotificationService();
-        // Only notify on first attempt
+
         if (retries === 0) {
             NotificationService.consoleNotify(params);
         }
-        try {
+
+        const solveCaptchaOperation = async () => {
             const attachmentUrl = message.attachments.first()?.url;
             if (attachmentUrl) {
                 logger.debug(`Image captcha detected, attempting to solve... (Attempt ${retries + 1}/${maxRetries + 1})`);
-                const solution = await captchaService.solveImageCaptcha(attachmentUrl);
-                logger.debug(`Attempting reach OwO bot...`);
+
+                const solution = await defaultRetryManager.executeWithRetry(
+                    () => captchaService.solveImageCaptcha(attachmentUrl),
+                    {
+                        maxRetries: 2,
+                        baseDelay: 3000,
+                        operationId: 'solveCaptcha',
+                        retryCondition: (error) => !error.message.includes('invalid image')
+                    }
+                );
+
+                logger.debug(`Attempting to reach OwO bot...`);
                 const owo = await agent.client.users.fetch(agent.owoID);
                 const dms = await owo.createDM();
+
+                await agent.client.sleep(humanLikeDelay(1500, 0.3));
+
                 logger.debug(`DM channel created, sending captcha solution...`);
                 const captchaResponse = await agent.awaitResponse({
                     channel: dms,
                     filter: (msg) => msg.author.id == agent.owoID && /verified that you are.{1,3}human!/igm.test(msg.content),
                     trigger: async () => dms.send(solution),
-                    time: 30_000
+                    time: 45_000
                 });
                 if (!captchaResponse) {
                     throw new Error("No response from OwO bot after sending captcha solution.");
