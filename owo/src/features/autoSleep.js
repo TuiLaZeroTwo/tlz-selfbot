@@ -1,7 +1,8 @@
 import { Schematic } from "../structure/Schematic.js";
 import { formatTime } from "../utils/time.js";
 import { logger } from "../utils/logger.js";
-import { mapInt, ranInt } from "../utils/math.js";
+import { mapInt, ranInt, humanLikeDelay, gaussianRandom } from "../utils/math.js";
+import { stealthManager } from "../utils/stealth.js";
 export default Schematic.registerFeature({
     name: "autoSleep",
     cooldown: () => 60 * 1000,
