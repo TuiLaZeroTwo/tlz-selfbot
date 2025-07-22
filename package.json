@@ -18,6 +18,20 @@
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "uglifyts": "^0.0.1"
+    "uglifyts": "^0.0.1",
+    "@inquirer/core": "^10.1.14",
+    "@inquirer/prompts": "^7.6.0",
+    "2captcha": "^3.0.5-2",
+    "adm-zip": "^0.5.16",
+    "axios-cookiejar-support": "^6.0.3",
+    "chalk": "^5.4.1",
+    "cross-env": "^7.0.3",
+    "debug": "^4.4.1",
+    "lodash": "^4.17.21",
+    "node-notifier": "^10.0.1",
+    "tough-cookie": "^5.1.2",
+    "winston": "^3.17.0",
+    "yargs": "^18.0.0",
+    "zod": "^4.0.5"
   }
 }

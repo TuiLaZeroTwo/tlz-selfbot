@@ -1,0 +1,417 @@
+{
+    "features": {
+        "autoClover": {
+            "executed": "Clover used successfully!"
+        },
+        "autoHunt": {
+            "noGems": "No usable hunting gems found in inventory, disabling autoGem feature.",
+            "gemsFound": "Found {count} types of usable hunting gems in Inventory."
+        },
+        "autoHuntbot": {
+            "stats": {
+                "huntbot": "Huntbot retrieved, current stats:",
+                "animals": "Animals: {count}",
+                "essence": "Essence: {amount}",
+                "exp": "Experience: {amount}"
+            },
+            "huntbotSent": "Huntbot sent, estimated time: {hours} hours, {minutes} minutes.",
+            "inHunting": "Huntbot is still hunting, estimated time left: {hours} hours, {minutes} minutes.",
+            "errors": {
+                "noCaptchaAPI": "No captcha API configured, force using ADOTF's API for Huntbot.",
+                "invalidCaptchaResult": "Invalid captcha result ({result}). Expected 5 letter characters."
+            }
+        },
+        "autoTrait": {
+            "essenceStatus": "Trait {trait} essence status: Current: {current}, Required: {required}, Available: {available}",
+            "errors": {
+                "notEnoughEssence": "Not enough essence to upgrade trait, skipping upgrade.",
+                "noEssenceMatch": "Failed to parse essence for trait {trait}.",
+                "notFound": "Trait {trait} not found in huntbot embed."
+            }
+        },
+        "autoSleep": {
+            "sleeping": "Sleeping for {duration} after {commands} commands.",
+            "nextSleep": "Next sleep after {commands} commands for {duration}."
+        },
+        "changePrefix": {
+            "noPrefixFound": "No new prefix found in response.",
+            "prefixChanged": "OwO prefix changed to: {prefix}"
+        },
+        "autoPray": {
+            "adminNotFound": "Admin not found in the server, removing command from autoPray list."
+        },
+        "common": {
+            "errors": {
+                "noAdminID": "{feature} feature requires adminID to be set in config.",
+                "invalidAdminID": "The configured Admin ID is invalid. Please set a valid user ID.",
+                "unreachableAdmin": "The admin user is unreachable. Please check if the user exists and is not blocked."
+            }
+        }
+    },
+    "cli": {
+        "generate": {
+            "fileExists": "File {filePath} already exists. Please choose a different filename.",
+            "configGenerated": "Config file generated at {filePath}"
+        }
+    },
+    "agent": {
+        "messages": {
+            "activeChannelSet": "Active channel set to: #{channelName}",
+            "invalidChannel": "Channel with ID {channelID} is not a text channel or does not exist.",
+            "removedInvalidChannel": "Removed invalid channel ID {channelID} from configuration.",
+            "configReloaded": "Configuration reloaded from cache.",
+            "noActiveChannel": "Cannot send command: No active channel is set.",
+            "owoStatusCheckFailed": "Failed to check OwO status, assuming bot is offline or not in the guild.",
+            "noFeaturesAvailable": "No features available to run. Please ensure features are loaded correctly.",
+            "owoOfflineDetected": "OwO bot offline status detected, expecting response on all awaits.",
+            "featureNotFound": "Feature {featureKey} not found in features collection.",
+            "featuresRegistered": "Registered {count} features.",
+            "commandsRegistered": "Registered {count} commands.",
+            "loggedIn": "Logged in as: {username}"
+        }
+    },
+    "system": {
+        "messages": {
+            "fileSaved": "File saved to: {filePath}"
+        },
+        "logger": {
+            "levels": {
+                "alert": "ALERT",
+                "error": "ERROR",
+                "runtime": "RUNTIME",
+                "warn": "WARNING",
+                "info": "INFO",
+                "data": "DATA",
+                "sent": "SENT",
+                "debug": "DEBUG"
+            }
+        },
+        "update": {
+            "checkingForUpdates": "Checking for updates...",
+            "newVersionAvailable": "New version available: {latestVersion}. Current version: {currentVersion}.",
+            "latestVersion": "You are using the latest version: {currentVersion}.",
+            "installingDependencies": "Installing dependencies...",
+            "dependenciesInstalled": "Dependencies installed successfully.",
+            "performingUpdate": "Performing update...",
+            "gitDetected": "Git detected, updating with Git!",
+            "gitNotFound": "Git not found, updating manually...",
+            "updateCompleted": "Update completed successfully!"
+        }
+    },
+    "ui": {
+        "accounts": {
+            "selectAccount": "Select an account: ",
+            "loginNewToken": "Login with a new token",
+            "loginQR": "Login with QR code"
+        },
+        "actions": {
+            "selectAction": "Select an action: ",
+            "run": "Run",
+            "editConfig": "Edit Config",
+            "exportConfig": "Export Config",
+            "deleteConfig": "Delete Config",
+            "noExistingConfig": "No existing config found"
+        },
+        "token": {
+            "enterToken": "Enter your Discord token:",
+            "invalidFormat": "Invalid token format"
+        },
+        "guild": {
+            "selectGuild": "Select a guild to farm in: "
+        },
+        "channels": {
+            "selectChannels": "Select channels to farm in (spacebar to select): ",
+            "mustSelectOne": "You must select at least one channel."
+        },
+        "notifications": {
+            "selectWays": "Select ways to send notifications (eg. when captcha is detected): ",
+            "webhook": "Webhook",
+            "dms": "Direct Message (Friends Only)",
+            "call": "Call (Friends Only)",
+            "music": "Music",
+            "popup": "[BETA] Popup Notification",
+            "description": "Select how you want to receive notifications. You can select multiple options. Note that 'Call' and 'DMs' require the user to be a friend of the selfbot."
+        },
+        "webhookURL": {
+            "enterURL": "Enter your Discord webhook URL: ",
+            "invalidFormat": "Invalid webhook URL format.",
+            "notAccessible": "Webhook URL is not accessible."
+        },
+        "adminID": {
+            "enterUserID": "Enter user ID you want to:\n + Use Selfbot commands (if prefix is set)\n + Receive Cookie (if autoCookie is enabled)\n + Receive Clover (if autoClover is enabled)\n + Receive Notifications on captcha detected\nEnter user ID{required}: ",
+            "emptyToSkip": ", empty to skip",
+            "invalidFormat": "Invalid user ID format.",
+            "cannotSetSelf": "You cannot set yourself for receiving Cookie/Clover/Notifications (DMs/Call).",
+            "notMember": "User is not a member of the selected guild.",
+            "userNotFound": "User not found.",
+            "friendRequestSent": "Friend request sent. Please accept Selfbot's friend request to continue.",
+            "friendRequestFailed": "Failed to send friend request. Please do it manually or check your privacy settings and try again.",
+            "acceptFriendRequest": "Please accept Selfbot's friend request to continue.",
+            "friendRequestAcceptFailed": "Failed to accept friend request. Please do it manually.",
+            "blocked": "Either you or the user has blocked the other. Please unblock to continue."
+        },
+        "musicPath": {
+            "enterPath": "Enter the full path to your sound file (e.g., C:\\sounds\\alert.mp3): ",
+            "fileNotExist": "File does not exist.",
+            "invalidFormat": "Invalid file format. Supported formats: mp3, wav, ogg, flac, aac, wma"
+        },
+        "captchaAPI": {
+            "selectProvider": "Select a captcha solving provider (Selfbot will try 2 times): ",
+            "skip": "Skip",
+            "adotfAPI": "Our ADOTF's API (coming soon)",
+            "adotfDescription": "ADOTF: Advanced Discord Owo Tool Farm, currently only supports Huntbot captchas",
+            "notImplemented": "This feature is not implemented yet."
+        },
+        "captchaAPIKey": {
+            "enterKey": "Enter your API key for the captcha solving service: "
+        },
+        "prefix": {
+            "enterPrefix": "Enter your selfbot command Prefix, Empty to skip: ",
+            "invalidPrefix": "Invalid Prefix"
+        },
+        "gemUsage": {
+            "selectUsage": "Select how you want to use gems: ",
+            "skip": "Skip (Do not use gems)",
+            "fabledToCommon": "Fabled -> Common",
+            "commonToFabled": "Common -> Fabled"
+        },
+        "gemTier": {
+            "selectTiers": "Select gem tiers to use (spacebar to select): ",
+            "mustSelectOne": "You must select at least one gem tier.",
+            "common": "Common",
+            "uncommon": "Uncommon",
+            "rare": "Rare",
+            "epic": "Epic",
+            "mythical": "Mythical",
+            "legendary": "Legendary",
+            "fabled": "Fabled"
+        },
+        "trait": {
+            "selectTrait": "Select a trait to use: ",
+            "efficiency": "Efficiency",
+            "duration": "Duration",
+            "cost": "Cost",
+            "gain": "Gain",
+            "experience": "Experience",
+            "radar": "Radar"
+        },
+        "huntbotSolver": {
+            "selectSolver": "Select Huntbot solver: ",
+            "providedAPI": "Provided Captcha API: {api}",
+            "noAPI": "None",
+            "noAPIDisabled": "You did not set a captcha API provider",
+            "adotfAPI": "Our ADOTF's API (currently free and supports Huntbot captchas)"
+        },
+        "prayCurse": {
+            "selectOptions": "Select which pray/curses you want to auto use (spacebar to select): ",
+            "praySelf": "Pray selfbot account",
+            "curseSelf": "Curse selfbot account",
+            "prayAdmin": "Pray notification reception",
+            "curseAdmin": "Curse notification reception"
+        },
+        "quoteAction": {
+            "selectActions": "Select which quote action you want to auto use (spacebar to select): ",
+            "owo": "OwO",
+            "quote": "Quote"
+        },
+        "rppAction": {
+            "selectActions": "Select which Run/Pup/Piku action you want to auto use (spacebar to select): ",
+            "run": "Run",
+            "pup": "Pup",
+            "piku": "Piku"
+        },
+        "toggleOptions": {
+            "autoLootbox": "Toggle Automatically Use Lootbox",
+            "autoFabledLootbox": "Toggle Automatically Use Fabled Lootbox",
+            "autoHuntbot": "Toggle Automatically Send/Receive Huntbot",
+            "autoCookie": "Toggle Automatically Send Cookie",
+            "autoClover": "Toggle Automatically Send Clover",
+            "autoDaily": "Toggle automatically claim daily rewards",
+            "autoSleep": "Toggle automatically pause randomly to avoid captcha",
+            "autoReload": "Toggle automatically reload config daily",
+            "useCustomPrefix": "Toggle using server OwO bot prefix",
+            "autoSell": "Toggle automatically sell animals once cash ran out",
+            "showRPC": "Toggle showing Discord Rich Presence",
+            "autoResume": "Toggle automatically resume after the captcha is solved"
+        },
+        "messages": {
+            "checkingAccount": "Checking account...",
+            "invalidToken": "Invalid token or QR code. Please try again.",
+            "configExported": "Configuration exported to: {path}",
+            "confirmDelete": "Are you sure you want to delete the configuration for {username}?",
+            "configDeleted": "Configuration for {username} deleted.",
+            "deletionCancelled": "Deletion cancelled."
+        }
+    },
+    "commands": {
+        "ping": {
+            "description": "Check the tool's latency",
+            "response": "Latency: **{latency}**ms (WebSocket: **{wsLatency}**ms)"
+        },
+        "uptime": {
+            "description": "Check how long the tool has been running",
+            "response": "Uptime: **{uptime}**"
+        },
+        "say": {
+            "description": "Make the tool say something",
+            "noMessage": "You must provide a message to say.",
+            "success": "Message sent successfully."
+        },
+        "eval": {
+            "description": "Evaluate JavaScript code",
+            "noCode": "You must provide code to evaluate.",
+            "success": "Code evaluated successfully.\nType: **{type}**\nTime taken: **{time}**ms\nResult: ```js\n{result}\n```",
+            "error": "Error evaluating code: ```js\n{error}\n```",
+            "timeout": "Evaluation timed out after {timeout} milliseconds."
+        },
+        "reload": {
+            "description": "Reload commands, features, or configuration",
+            "noTarget": "You must specify what to reload: `config`, `commands`, `features`, or `all`.",
+            "invalidTarget": "Invalid target specified. Please use `config`, `commands`, `features`, or `all`.",
+            "success": {
+                "config": "Successfully reloaded **configuration**.",
+                "commands": "Successfully reloaded **{count} commands**.",
+                "features": "Successfully reloaded **{count} features**.",
+                "all": "Successfully reloaded **everything**: config, {commandCount} commands, and {featureCount} features."
+            },
+            "error": "Error reloading {target}: {error}"
+        },
+        "stop": {
+            "description": "Stop and terminate the tool immediately",
+            "stopping": "🛑 **Stopping the tool...**",
+            "terminated": "✅ **Tool has been terminated successfully.**"
+        },
+        "pause": {
+            "description": "Pause the tool temporarily",
+            "success": "⏸️ **Tool has been paused.**",
+            "successWithTimeout": "⏸️ **Tool has been paused for {duration}.**",
+            "alreadyPaused": "⚠️ **Tool is already paused.**",
+            "invalidDuration": "❌ **Invalid duration format.** Use formats like `1h`, `30m`, `45s` (s=seconds, m=minutes, h=hours, d=days).",
+            "durationTooLong": "❌ **Duration too long.** Maximum pause duration is 24 hours.",
+            "autoResumed": "▶️ **Tool has been automatically resumed after timeout.**"
+        },
+        "resume": {
+            "description": "Resume the tool",
+            "success": "▶️ **Tool has been resumed.**",
+            "notPaused": "⚠️ **Tool is not currently paused.**"
+        },
+        "send": {
+            "description": "Send cowoncy to another user",
+            "noMessage": "❌ **You must provide a user and amount.** Usage: `send <user> <amount>`",
+            "invalidUser": "❌ **Invalid user specified.** Please mention a valid user.",
+            "invalidAmount": "❌ **Invalid amount specified.** Please provide a valid number.",
+            "success": "✅ **Successfully sent {amount} cowoncy to {user}!**",
+            "error": "❌ **Error occurred while sending cowoncy:** {error}"
+        },
+        "status": {
+            "description": "Current status of the tool",
+            "status": "Current status: **{status}**\nUptime: **{uptime}**\nTotal texts sent: **{texts}**\nTotal commands executed: **{commands}**\nTotal captchas solved: **{captchasSolved}**\nTotal captchas failed: **{captchasFailed}**"
+        },
+        "common": {
+            "errors": {
+                "guildOnly": "❌ **This command can only be used in a server.**",
+                "noPermission": "I do not have permission to send messages in that channel.",
+                "invalidChannel": "Invalid channel specified. Please provide a valid text channel ID.",
+                "noResponse": "⚠️ **No response from OwO bot.**"
+            }
+        }
+    },
+    "logging": {
+        "farmLoop": {
+            "paused": "Farm loop has been paused.",
+            "resumed": "Farm loop has been resumed."
+        }
+    },
+    "status": {
+        "states": {
+            "terminated": "THE TOOL HAS BEEN TERMINATED",
+            "banned": "ACCOUNT HAS BEEN BANNED",
+            "stop": "STOPPING THE TOOL",
+            "resolved": "CAPTCHA HAS BEEN RESOLVED",
+            "stopping": "STOPPING THE TOOL...",
+            "restarting": "RESTARTING THE TOOL..."
+        },
+        "total": {
+            "texts": "Total texts sent: {count}",
+            "commands": "Total commands sent: {count}",
+            "uptime": "Total uptime: {duration}",
+            "captchaSolved": "Total captchas solved: {count}",
+            "captchaFailed": "Total captchas failed: {count}"
+        }
+    },
+    "error": {
+        "adminID": {
+            "notconfigured": "Admin ID is not configured in the settings."
+        }
+    },
+    "captcha": {
+        "detected": "Captcha detected in channel: {channel}",
+        "imageDetected": "Image captcha detected, attempting to solve... (Attempt {current}/{max})",
+        "linkDetected": "Link captcha detected, attempting to solve... (Attempt {current}/{max})",
+        "downloadingImage": "Downloading captcha image from {url}",
+        "solutionFound": "Captcha solution: {solution}",
+        "reachingBot": "Attempting to reach OwO bot...",
+        "dmCreated": "DM channel created, sending captcha solution...",
+        "solvingHcaptcha": "Solving hCaptcha with sitekey: {sitekey} and siteurl: {siteurl}",
+        "hcaptchaToken": "hCaptcha response token: {token}...",
+        "solvedSuccessfully": "Captcha solved successfully on attempt {attempt}!",
+        "failedAttempt": "Failed to solve captcha on attempt {attempt}:",
+        "retrying": "Retrying captcha solving after 3 seconds... ({current}/{max})",
+        "allAttemptsFailed": "All {maxAttempts} attempts to solve captcha failed, waiting for manual resolution.",
+        "waitingForResolution": "WAITING FOR THE CAPTCHA TO BE RESOLVED TO {action}...",
+        "errors": {
+            "solverNotConfigured": "Captcha solver is not configured.",
+            "apiNotConfigured": "Captcha API or API key not configured. Captcha handling will be disabled.",
+            "unknownProvider": "Unknown captcha provider: {provider}",
+            "noResponse": "No response from OwO bot after sending captcha solution.",
+            "captchaInactive": "Captcha is not active or account is banned.",
+            "verificationFailed": "Failed to verify captcha: {error}"
+        },
+        "notifications": {
+            "title": "CAPTCHA DETECTED",
+            "resolved": "Status: ✅ RESOLVED",
+            "unresolved": "Status: ❌ **UNRESOLVED**",
+            "detectedInChannel": "Captcha detected in channel: <#{channelId}>",
+            "fields": {
+                "captchaType": "Captcha Type",
+                "attempt": "Attempt",
+                "failedAttempts": "Failed Attempts",
+                "lastError": "Last Error",
+                "resolveManually": "Please resolve the captcha manually before"
+            }
+        }
+    },
+    "errors": {
+        "noresponse": "Number of no responses received from OwO bot exceeded the threshold {threshold}.",
+        "adminID": {
+            "notconfigured": "Admin ID is not configured in the settings. Please set it to receive notifications.",
+            "invalid": "The configured Admin ID is invalid. Please set a valid user ID.",
+            "unreachable": "The admin user is unreachable. Please check if the user exists and is not blocked."
+        }
+    },
+    "notifier": {
+        "skip": "Skipping {type} execution",
+        "errors": {
+            "execution": "Error executing {type} notifier: {error}"
+        }
+    },
+    "notifications": {
+        "captcha": {
+            "title": "CAPTCHA DETECTED",
+            "description": "A captcha has been detected and requires attention"
+        }
+    },
+    "handlers": {
+        "criticalEvent": {
+            "noMoney": {
+                "attemptingSell": "Cowoncy ran out! Attempting to sell all items.",
+                "noItems": "No sellable items found. Stopping selfbot.",
+                "autoSellDisabled": "Cowoncy ran out and autoSell is disabled. Stopping selfbot."
+            }
+        }
+    },
+    "events": {
+        "sigint": "Received SIGINT. Stopping selfbot...",
+        "sigterm": "Received SIGTERM. Stopping selfbot..."
+    }
+}

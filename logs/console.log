@@ -1,0 +1,28 @@
+2025-07-22 09:12:50 [ERROR] File E:\cool\molotov\owoconfig.json does not exist.
+2025-07-22 09:17:32 [INFO] Configuration imported successfully
+2025-07-22 09:17:37 [DEBUG] Initializing BaseAgent...
+2025-07-22 09:17:37 [INFO] Active channel set to: #4
+2025-07-22 09:17:41 [INFO] Registered 13 features.
+2025-07-22 09:17:42 [INFO] Registered 10 commands.
+2025-07-22 09:17:42 [DEBUG] Loaded event: commandCreate from E:\cool\molotov\owo\src\events\commandCreate.js
+2025-07-22 09:17:42 [DEBUG] Loaded event: dmsCreate from E:\cool\molotov\owo\src\events\dmsCreate.js
+2025-07-22 09:17:42 [DEBUG] Loaded event: owoMessageEvent from E:\cool\molotov\owo\src\events\owoMessageCreate.js
+2025-07-22 09:17:42 [DEBUG] BaseAgent initialized successfully.
+2025-07-22 09:17:42 [INFO] Logged in as: tuilazerotwo
+2025-07-22 09:17:43 [SENT] k battle
+2025-07-22 09:17:45 [DEBUG] Response received: ...
+2025-07-22 09:17:48 [WARNING] The configured Admin ID is invalid. Please set a valid user ID.
+2025-07-22 09:17:48 [DEBUG] Configuration updated: autoClover changed from true to false
+2025-07-22 09:17:50 [SENT] k huntbot
+2025-07-22 09:17:52 [DEBUG] Response received: ...
+2025-07-22 09:17:52 [DATA] Trait efficiency essence status: Current: 2237, Required: 4044, Available: 1807
+2025-07-22 09:17:52 [INFO] Not enough essence to upgrade trait, skipping upgrade.
+2025-07-22 09:17:53 [SENT] k huntbot 24h
+2025-07-22 09:17:56 [DEBUG] Response received: **<:cbot:459996048379609098> | ! tl...
+2025-07-22 09:17:56 [DEBUG] Downloading captcha image from https://cdn.discordapp.com/attachments/1368947181288951898/1397039939258155140/captcha.png?ex=68804655&is=687ef4d5&hm=3cd9dd0815781173b570e85b2b3b0b775122564c8076222096af338737f0c1ef&
+2025-07-22 09:18:07 [DEBUG] Captcha solution: hxdTm
+2025-07-22 09:18:07 [DATA] Captcha solution: {solution}
+2025-07-22 09:18:08 [SENT] k huntbot 24h hxdTm
+2025-07-22 09:18:10 [DEBUG] Response received: **<:cbot:459996048379609098> |** `B...
+2025-07-22 09:18:10 [INFO] Huntbot sent, estimated time: 1 hours, 30 minutes.
+2025-07-22 09:18:10 [INFO] Received SIGINT. Stopping selfbot...

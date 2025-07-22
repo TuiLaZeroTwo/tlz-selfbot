@@ -68,7 +68,7 @@ module.exports = (client, config) => {
   logger.info('Gen command initialized');
   client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
-    if (!message.content.startsWith(config.prefix)) return;
+    if (!message.content.startsWith(config.prefix + "gen")) return;
     if (message.author.id !== config.ownerID) return;
 
     const args = message.content.trim().split(/\s+/);

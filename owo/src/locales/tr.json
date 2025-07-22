@@ -1,0 +1,417 @@
+{
+    "features": {
+        "autoClover": {
+            "executed": "Clover başarıyla kullanıldı!"
+        },
+        "autoHunt": {
+            "noGems": "Envanterde kullanılabilir avcılık mücevheri bulunamadı, autoGem özelliği devre dışı bırakılıyor.",
+            "gemsFound": "Envanterde {count} türde kullanılabilir avcılık mücevheri bulundu."
+        },
+        "autoHuntbot": {
+            "stats": {
+                "huntbot": "Huntbot alındı, mevcut istatistikler:",
+                "animals": "Hayvanlar: {count}",
+                "essence": "Öz: {amount}",
+                "exp": "Deneyim: {amount}"
+            },
+            "huntbotSent": "Huntbot gönderildi, tahmini süre: {hours} saat, {minutes} dakika.",
+            "inHunting": "Huntbot hala avlanıyor, kalan tahmini süre: {hours} saat, {minutes} dakika.",
+            "errors": {
+                "noCaptchaAPI": "Captcha API'si yapılandırılmamış, Huntbot için ADOTF'nin API'sini kullanmaya zorlanıyor.",
+                "invalidCaptchaResult": "Geçersiz captcha sonucu ({result}). 5 harf karakteri bekleniyor."
+            }
+        },
+        "autoTrait": {
+            "essenceStatus": "Özellik {trait} öz durumu: Mevcut: {current}, Gerekli: {required}, Kullanılabilir: {available}",
+            "errors": {
+                "notEnoughEssence": "Özelliği yükseltmek için yeterli öz yok, yükseltme atlanıyor.",
+                "noEssenceMatch": "{trait} özelliği için öz ayrıştırılamadı.",
+                "notFound": "Huntbot embed'inde {trait} özelliği bulunamadı."
+            }
+        },
+        "autoSleep": {
+            "sleeping": "{commands} komut sonra {duration} boyunca uyuyor.",
+            "nextSleep": "{commands} komut sonra {duration} boyunca bir sonraki uyku."
+        },
+        "changePrefix": {
+            "noPrefixFound": "Yanıtta yeni önek bulunamadı.",
+            "prefixChanged": "OwO öneki şu şekilde değiştirildi: {prefix}"
+        },
+        "autoPray": {
+            "adminNotFound": "Sunucuda admin bulunamadı, komut autoPray listesinden kaldırılıyor."
+        },
+        "common": {
+            "errors": {
+                "noAdminID": "{feature} özelliği yapılandırmada adminID'nin ayarlanmasını gerektirir.",
+                "invalidAdminID": "Yapılandırılan Admin ID geçersiz. Lütfen geçerli bir kullanıcı ID'si ayarlayın.",
+                "unreachableAdmin": "Admin kullanıcısına ulaşılamıyor. Kullanıcının var olduğunu ve engellenmediğini kontrol edin."
+            }
+        }
+    },
+    "cli": {
+        "generate": {
+            "fileExists": "Dosya {filePath} zaten mevcut. Lütfen farklı bir dosya adı seçin.",
+            "configGenerated": "Yapılandırma dosyası {filePath} konumunda oluşturuldu"
+        }
+    },
+    "agent": {
+        "messages": {
+            "activeChannelSet": "Aktif kanal şu şekilde ayarlandı: #{channelName}",
+            "invalidChannel": "ID'si {channelID} olan kanal bir metin kanalı değil veya mevcut değil.",
+            "removedInvalidChannel": "Geçersiz kanal ID'si {channelID} yapılandırmadan kaldırıldı.",
+            "configReloaded": "Yapılandırma önbellekten yeniden yüklendi.",
+            "noActiveChannel": "Komut gönderilemiyor: Aktif kanal ayarlanmamış.",
+            "owoStatusCheckFailed": "OwO durumu kontrol edilemedi, bot'un çevrimdışı olduğu veya guild'de olmadığı varsayılıyor.",
+            "noFeaturesAvailable": "Çalıştırılacak özellik yok. Özelliklerin doğru şekilde yüklendiğinden emin olun.",
+            "owoOfflineDetected": "OwO bot çevrimdışı durumu tespit edildi, tüm await'lerde yanıt bekleniyor.",
+            "featureNotFound": "Özellik {featureKey} özellik koleksiyonunda bulunamadı.",
+            "featuresRegistered": "{count} özellik kaydedildi.",
+            "commandsRegistered": "{count} komut kaydedildi.",
+            "loggedIn": "Şu kullanıcı olarak giriş yapıldı: {username}"
+        }
+    },
+    "system": {
+        "messages": {
+            "fileSaved": "Dosya şuraya kaydedildi: {filePath}"
+        },
+        "logger": {
+            "levels": {
+                "alert": "UYARI",
+                "error": "HATA",
+                "runtime": "ÇALIŞMA ZAMANI",
+                "warn": "DİKKAT",
+                "info": "BİLGİ",
+                "data": "VERİ",
+                "sent": "GÖNDERİLDİ",
+                "debug": "HATA AYIKLAMA"
+            }
+        },
+        "update": {
+            "checkingForUpdates": "Güncellemeler kontrol ediliyor...",
+            "newVersionAvailable": "Yeni sürüm mevcut: {latestVersion}. Mevcut sürüm: {currentVersion}.",
+            "latestVersion": "En son sürümü kullanıyorsunuz: {currentVersion}.",
+            "installingDependencies": "Bağımlılıklar yükleniyor...",
+            "dependenciesInstalled": "Bağımlılıklar başarıyla yüklendi.",
+            "performingUpdate": "Güncelleme gerçekleştiriliyor...",
+            "gitDetected": "Git algılandı, Git ile güncelleniyor!",
+            "gitNotFound": "Git bulunamadı, manuel güncelleme yapılıyor...",
+            "updateCompleted": "Güncelleme başarıyla tamamlandı!"
+        }
+    },
+    "ui": {
+        "accounts": {
+            "selectAccount": "Bir hesap seçin: ",
+            "loginNewToken": "Yeni token ile giriş yap",
+            "loginQR": "QR kodu ile giriş yap"
+        },
+        "actions": {
+            "selectAction": "Bir işlem seçin: ",
+            "run": "Çalıştır",
+            "editConfig": "Yapılandırma Düzenle",
+            "exportConfig": "Yapılandırma Dışa Aktar",
+            "deleteConfig": "Yapılandırma Sil",
+            "noExistingConfig": "Mevcut yapılandırma bulunamadı"
+        },
+        "token": {
+            "enterToken": "Discord token'ınızı girin:",
+            "invalidFormat": "Geçersiz token formatı"
+        },
+        "guild": {
+            "selectGuild": "Farm yapılacak sunucuyu seçin: "
+        },
+        "channels": {
+            "selectChannels": "Farm yapılacak kanalları seçin (seçmek için boşluk tuşu): ",
+            "mustSelectOne": "En az bir kanal seçmelisiniz."
+        },
+        "notifications": {
+            "selectWays": "Bildirim gönderme yöntemlerini seçin (örn. captcha tespit edildiğinde): ",
+            "webhook": "Webhook",
+            "dms": "Direkt Mesaj (Sadece Arkadaşlar)",
+            "call": "Arama (Sadece Arkadaşlar)",
+            "music": "Müzik",
+            "popup": "[BETA] Popup Bildirimi",
+            "description": "Bildirimleri nasıl almak istediğinizi seçin. Birden fazla seçenek seçebilirsiniz. 'Arama' ve 'DM'lerin selfbot'un arkadaşı olmanızı gerektirdiğini unutmayın."
+        },
+        "webhookURL": {
+            "enterURL": "Discord webhook URL'nizi girin: ",
+            "invalidFormat": "Geçersiz webhook URL formatı.",
+            "notAccessible": "Webhook URL'si erişilebilir değil."
+        },
+        "adminID": {
+            "enterUserID": "Şunları yapmak istediğiniz kullanıcı ID'sini girin:\n + Selfbot komutlarını kullanma (prefix ayarlanmışsa)\n + Cookie alma (autoCookie etkinse)\n + Clover alma (autoClover etkinse)\n + Captcha tespit edildiğinde bildirim alma\nKullanıcı ID'sini girin{required}: ",
+            "emptyToSkip": ", atlamak için boş bırakın",
+            "invalidFormat": "Geçersiz kullanıcı ID formatı.",
+            "cannotSetSelf": "Cookie/Clover/Bildirim (DM/Arama) almak için kendinizi ayarlayamazsınız.",
+            "notMember": "Kullanıcı seçilen sunucunun üyesi değil.",
+            "userNotFound": "Kullanıcı bulunamadı.",
+            "friendRequestSent": "Arkadaşlık isteği gönderildi. Devam etmek için Selfbot'un arkadaşlık isteğini kabul edin.",
+            "friendRequestFailed": "Arkadaşlık isteği gönderilemedi. Lütfen manuel olarak yapın veya gizlilik ayarlarınızı kontrol edip tekrar deneyin.",
+            "acceptFriendRequest": "Devam etmek için lütfen Selfbot'un arkadaşlık isteğini kabul edin.",
+            "friendRequestAcceptFailed": "Arkadaşlık isteği kabul edilemedi. Lütfen manuel olarak yapın.",
+            "blocked": "Siz veya kullanıcı birbirinizi engellemiş. Devam etmek için engeli kaldırın."
+        },
+        "musicPath": {
+            "enterPath": "Ses dosyanızın tam yolunu girin (örn: C:\\sounds\\alert.mp3): ",
+            "fileNotExist": "Dosya mevcut değil.",
+            "invalidFormat": "Geçersiz dosya formatı. Desteklenen formatlar: mp3, wav, ogg, flac, aac, wma"
+        },
+        "captchaAPI": {
+            "selectProvider": "Captcha çözme sağlayıcısını seçin (Selfbot 2 kez deneyecek): ",
+            "skip": "Atla",
+            "adotfAPI": "ADOTF API'mizı (yakında geliyor)",
+            "adotfDescription": "ADOTF: Advanced Discord Owo Tool Farm, şu anda sadece Huntbot captcha'larını destekliyor",
+            "notImplemented": "Bu özellik henüz uygulanmadı."
+        },
+        "captchaAPIKey": {
+            "enterKey": "Captcha çözme hizmeti için API anahtarınızı girin: "
+        },
+        "prefix": {
+            "enterPrefix": "Selfbot komut Prefix'inizi girin, Atlamak için boş bırakın: ",
+            "invalidPrefix": "Geçersiz Prefix"
+        },
+        "gemUsage": {
+            "selectUsage": "Taşları nasıl kullanmak istediğinizi seçin: ",
+            "skip": "Atla (Taş kullanma)",
+            "fabledToCommon": "Fabled -> Common",
+            "commonToFabled": "Common -> Fabled"
+        },
+        "gemTier": {
+            "selectTiers": "Kullanılacak taş seviyelerini seçin (seçmek için boşluk tuşu): ",
+            "mustSelectOne": "En az bir taş seviyesi seçmelisiniz.",
+            "common": "Common",
+            "uncommon": "Uncommon",
+            "rare": "Rare",
+            "epic": "Epic",
+            "mythical": "Mythical",
+            "legendary": "Legendary",
+            "fabled": "Fabled"
+        },
+        "trait": {
+            "selectTrait": "Kullanılacak özelliği seçin: ",
+            "efficiency": "Efficiency",
+            "duration": "Duration",
+            "cost": "Cost",
+            "gain": "Gain",
+            "experience": "Experience",
+            "radar": "Radar"
+        },
+        "huntbotSolver": {
+            "selectSolver": "Huntbot çözücüsünü seçin: ",
+            "providedAPI": "Sağlanan Captcha API: {api}",
+            "noAPI": "Yok",
+            "noAPIDisabled": "Captcha API sağlayıcısı ayarlamadınız",
+            "adotfAPI": "ADOTF API'mizı (şu anda ücretsiz ve Huntbot captcha'larını destekliyor)"
+        },
+        "prayCurse": {
+            "selectOptions": "Otomatik kullanmak istediğiniz pray/curse'leri seçin (seçmek için boşluk tuşu): ",
+            "praySelf": "Selfbot hesabına pray",
+            "curseSelf": "Selfbot hesabına curse",
+            "prayAdmin": "Bildirim alıcısına pray",
+            "curseAdmin": "Bildirim alıcısına curse"
+        },
+        "quoteAction": {
+            "selectActions": "Otomatik kullanmak istediğiniz quote işlemlerini seçin (seçmek için boşluk tuşu): ",
+            "owo": "OwO",
+            "quote": "Quote"
+        },
+        "rppAction": {
+            "selectActions": "Otomatik kullanmak istediğiniz Run/Pup/Piku işlemlerini seçin (seçmek için boşluk tuşu): ",
+            "run": "Run",
+            "pup": "Pup",
+            "piku": "Piku"
+        },
+        "toggleOptions": {
+            "autoLootbox": "Otomatik Lootbox Kullanımını Aç/Kapat",
+            "autoFabledLootbox": "Otomatik Fabled Lootbox Kullanımını Aç/Kapat",
+            "autoHuntbot": "Otomatik Huntbot Gönder/Al'ı Aç/Kapat",
+            "autoCookie": "Otomatik Cookie Gönder'i Aç/Kapat",
+            "autoClover": "Otomatik Clover Gönder'i Aç/Kapat",
+            "autoDaily": "Günlük ödülleri otomatik talep etmeyi aç/kapat",
+            "autoSleep": "Captcha'dan kaçınmak için rastgele duraklamayı aç/kapat",
+            "autoReload": "Günlük yapılandırma yeniden yüklemeyi aç/kapat",
+            "useCustomPrefix": "Sunucu OwO bot prefix'i kullanımını aç/kapat",
+            "autoSell": "Para bittiğinde hayvanları otomatik satmayı aç/kapat",
+            "showRPC": "Discord Rich Presence gösterimini aç/kapat",
+            "autoResume": "Captcha çözüldükten sonra otomatik devam etmeyi aç/kapat"
+        },
+        "messages": {
+            "checkingAccount": "Hesap kontrol ediliyor...",
+            "invalidToken": "Geçersiz token veya QR kodu. Lütfen tekrar deneyin.",
+            "configExported": "Yapılandırma şuraya aktarıldı: {path}",
+            "confirmDelete": "{username} için yapılandırmayı silmek istediğinizden emin misiniz?",
+            "configDeleted": "{username} için yapılandırma silindi.",
+            "deletionCancelled": "Silme iptal edildi."
+        }
+    },
+    "commands": {
+        "ping": {
+            "description": "Aracın gecikmesini kontrol et",
+            "response": "Gecikme: **{latency}**ms (WebSocket: **{wsLatency}**ms)"
+        },
+        "uptime": {
+            "description": "Aracın ne kadar süredir çalıştığını kontrol et",
+            "response": "Çalışma süresi: **{uptime}**"
+        },
+        "say": {
+            "description": "Aracın bir şey söylemesini sağla",
+            "noMessage": "Söylenecek bir mesaj sağlamalısın.",
+            "success": "Mesaj başarıyla gönderildi."
+        },
+        "eval": {
+            "description": "JavaScript kodunu değerlendir",
+            "noCode": "Değerlendirilecek kod sağlamalısın.",
+            "success": "Kod başarıyla değerlendirildi.\nTür: **{type}**\nGeçen süre: **{time}**ms\nSonuç: ```js\n{result}\n```",
+            "error": "Kod değerlendirme hatası: ```js\n{error}\n```",
+            "timeout": "Değerlendirme {timeout} milisaniye sonra zaman aşımına uğradı."
+        },
+        "reload": {
+            "description": "Komutları, özellikleri veya yapılandırmayı yeniden yükle",
+            "noTarget": "Neyin yeniden yükleneceğini belirtmelisin: `config`, `commands`, `features`, veya `all`.",
+            "invalidTarget": "Geçersiz hedef belirtildi. Lütfen `config`, `commands`, `features`, veya `all` kullan.",
+            "success": {
+                "config": "**Yapılandırma** başarıyla yeniden yüklendi.",
+                "commands": "**{count} komut** başarıyla yeniden yüklendi.",
+                "features": "**{count} özellik** başarıyla yeniden yüklendi.",
+                "all": "**Her şey** başarıyla yeniden yüklendi: yapılandırma, {commandCount} komut ve {featureCount} özellik."
+            },
+            "error": "{target} yeniden yüklenirken hata: {error}"
+        },
+        "stop": {
+            "description": "Aracı hemen durdur ve sonlandır",
+            "stopping": "🛑 **Araç durduruluyor...**",
+            "terminated": "✅ **Araç başarıyla sonlandırıldı.**"
+        },
+        "pause": {
+            "description": "Aracı geçici olarak duraklat",
+            "success": "⏸️ **Araç duraklatıldı.**",
+            "successWithTimeout": "⏸️ **Araç {duration} boyunca duraklatıldı.**",
+            "alreadyPaused": "⚠️ **Araç zaten duraklatılmış.**",
+            "invalidDuration": "❌ **Geçersiz süre biçimi.** `1h`, `30m`, `45s` gibi biçimler kullan (s=saniye, m=dakika, h=saat, d=gün).",
+            "durationTooLong": "❌ **Süre çok uzun.** Maksimum duraklama süresi 24 saattir.",
+            "autoResumed": "▶️ **Araç zaman aşımından sonra otomatik olarak devam ettirildi.**"
+        },
+        "resume": {
+            "description": "Aracı devam ettir",
+            "success": "▶️ **Araç devam ettirildi.**",
+            "notPaused": "⚠️ **Araç şu anda duraklatılmış değil.**"
+        },
+        "send": {
+            "description": "Başka bir kullanıcıya cowoncy gönder",
+            "noMessage": "❌ **Kullanıcı ve miktar sağlamalısın.** Kullanım: `send <kullanıcı> <miktar>`",
+            "invalidUser": "❌ **Geçersiz kullanıcı belirtildi.** Lütfen geçerli bir kullanıcıdan bahset.",
+            "invalidAmount": "❌ **Geçersiz miktar belirtildi.** Lütfen geçerli bir sayı sağla.",
+            "success": "✅ **{user} kullanıcısına {amount} cowoncy başarıyla gönderildi!**",
+            "error": "❌ **Cowoncy gönderilirken hata oluştu:** {error}"
+        },
+        "status": {
+            "description": "Aracın mevcut durumu",
+            "status": "Mevcut durum: **{status}**\nÇalışma süresi: **{uptime}**\nGönderilen toplam metin: **{texts}**\nYürütülen toplam komut: **{commands}**\nÇözülen toplam captcha: **{captchasSolved}**\nBaşarısız toplam captcha: **{captchasFailed}**"
+        },
+        "common": {
+            "errors": {
+                "guildOnly": "❌ **Bu komut sadece sunucuda kullanılabilir.**",
+                "noPermission": "O kanalda mesaj gönderme iznim yok.",
+                "invalidChannel": "Geçersiz kanal belirtildi. Lütfen geçerli bir metin kanalı ID'si sağla.",
+                "noResponse": "⚠️ **OwO bot'undan yanıt yok.**"
+            }
+        }
+    },
+    "logging": {
+        "farmLoop": {
+            "paused": "Farm döngüsü duraklatıldı.",
+            "resumed": "Farm döngüsü devam ettirildi."
+        }
+    },
+    "status": {
+        "states": {
+            "terminated": "ARAÇ SONLANDIRILDI",
+            "banned": "HESAP YASAKLANDI",
+            "stop": "ARAÇ DURDURULUYOR",
+            "resolved": "CAPTCHA ÇÖZÜLDÜ",
+            "stopping": "ARAÇ DURDURULUYOR...",
+            "restarting": "ARAÇ YENİDEN BAŞLATILIYOR..."
+        },
+        "total": {
+            "texts": "Gönderilen toplam metin: {count}",
+            "commands": "Gönderilen toplam komut: {count}",
+            "uptime": "Toplam çalışma süresi: {duration}",
+            "captchaSolved": "Çözülen toplam captcha: {count}",
+            "captchaFailed": "Başarısız toplam captcha: {count}"
+        }
+    },
+    "error": {
+        "adminID": {
+            "notconfigured": "Admin ID ayarlarda yapılandırılmamış."
+        }
+    },
+    "captcha": {
+        "detected": "Kanalda captcha tespit edildi: {channel}",
+        "imageDetected": "Resim captcha'sı tespit edildi, çözülmeye çalışılıyor... (Deneme {current}/{max})",
+        "linkDetected": "Link captcha'sı tespit edildi, çözülmeye çalışılıyor... (Deneme {current}/{max})",
+        "downloadingImage": "{url} adresinden captcha resmi indiriliyor",
+        "solutionFound": "Captcha çözümü: {solution}",
+        "reachingBot": "OwO bot'una ulaşılmaya çalışılıyor...",
+        "dmCreated": "DM kanalı oluşturuldu, captcha çözümü gönderiliyor...",
+        "solvingHcaptcha": "hCaptcha çözülüyor - sitekey: {sitekey} ve siteurl: {siteurl}",
+        "hcaptchaToken": "hCaptcha yanıt token'ı: {token}...",
+        "solvedSuccessfully": "Captcha {attempt}. denemede başarıyla çözüldü!",
+        "failedAttempt": "{attempt}. denemede captcha çözülemedi:",
+        "retrying": "3 saniye sonra captcha çözümü yeniden deneniyor... ({current}/{max})",
+        "allAttemptsFailed": "{maxAttempts} captcha çözme denemesinin tümü başarısız, manuel çözüm bekleniyor.",
+        "waitingForResolution": "CAPTCHA'NIN ÇÖZÜLMESI BEKLENIYOR - {action}...",
+        "errors": {
+            "solverNotConfigured": "Captcha çözücü yapılandırılmamış.",
+            "apiNotConfigured": "Captcha API'si veya API anahtarı yapılandırılmamış. Captcha işleme devre dışı bırakılacak.",
+            "unknownProvider": "Bilinmeyen captcha sağlayıcısı: {provider}",
+            "noResponse": "Captcha çözümü gönderildikten sonra OwO bot'undan yanıt yok.",
+            "captchaInactive": "Captcha aktif değil veya hesap yasaklanmış.",
+            "verificationFailed": "Captcha doğrulanamadı: {error}"
+        },
+        "notifications": {
+            "title": "CAPTCHA TESPİT EDİLDİ",
+            "resolved": "Durum: ✅ ÇÖZÜLDÜ",
+            "unresolved": "Durum: ❌ **ÇÖZÜLMEDEN**",
+            "detectedInChannel": "Kanalda captcha tespit edildi: <#{channelId}>",
+            "fields": {
+                "captchaType": "Captcha Türü",
+                "attempt": "Deneme",
+                "failedAttempts": "Başarısız Denemeler",
+                "lastError": "Son Hata",
+                "resolveManually": "Lütfen önce captcha'yı manuel olarak çözün"
+            }
+        }
+    },
+    "errors": {
+        "noresponse": "OwO bot'undan alınan yanıtsızlık sayısı eşik değeri {threshold} aştı.",
+        "adminID": {
+            "notconfigured": "Admin ID ayarlarda yapılandırılmamış. Bildirim almak için lütfen ayarlayın.",
+            "invalid": "Yapılandırılan Admin ID geçersiz. Lütfen geçerli bir kullanıcı ID'si ayarlayın.",
+            "unreachable": "Admin kullanıcısına ulaşılamıyor. Kullanıcının var olduğunu ve engellenmediğini kontrol edin."
+        }
+    },
+    "notifier": {
+        "skip": "{type} yürütme atlanıyor",
+        "errors": {
+            "execution": "{type} bildirimci yürütülürken hata: {error}"
+        }
+    },
+    "notifications": {
+        "captcha": {
+            "title": "CAPTCHA TESPİT EDİLDİ",
+            "description": "Bir captcha tespit edildi ve dikkat gerektiriyor"
+        }
+    },
+    "handlers": {
+        "criticalEvent": {
+            "noMoney": {
+                "attemptingSell": "Cowoncy bitti! Tüm öğeler satılmaya çalışılıyor.",
+                "noItems": "Satılabilir öğe bulunamadı. Selfbot durduruluyor.",
+                "autoSellDisabled": "Cowoncy bitti ve autoSell devre dışı. Selfbot durduruluyor."
+            }
+        }
+    },
+    "events": {
+        "sigint": "SIGINT alındı. Selfbot durduruluyor...",
+        "sigterm": "SIGTERM alındı. Selfbot durduruluyor..."
+    }
+}

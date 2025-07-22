@@ -1,9 +1,9 @@
 const { Client } = require('discord.js-selfbot-v13');
 const config = require('./config');
 //Handlers
-const websiteHandler = require('./handlers/websiteHandler');
 const voiceHandler = require('./handlers/voiceHandler');
 const autoReactHandler = require('./handlers/autoReactHandler');
+const owoHandler = require('./handlers/owoHandler');
 //Commands
 const hoststatusCommand = require('./commands/hoststatusCommand');
 const clearCommand = require('./commands/clearCommand');
@@ -20,9 +20,9 @@ const presenceManager = require('./managers/presenceManager');
 const client = new Client({ checkUpdate: false });
 
 //Handlers
-if (config.website.enabled) websiteHandler.startWebsite(config.website);
 if (config.voice.enabled) voiceHandler(client, config);
 if (config.auto_react.enabled) autoReactHandler(client, config);
+if (config.owo.enabled) owoHandler.init(client);
 //Commands
 if (config.qr.enabled) qrCommand(client, config);
 if (config.hoststatus.enabled) hoststatusCommand(client, config);

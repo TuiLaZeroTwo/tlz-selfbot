@@ -1,8 +1,4 @@
 module.exports = {
-  website: {
-    "enabled": true,
-    "port": 6969,
-  },
   token: "", //put your token here
   ownerID: "",// put your user id here
   prefix: "-", // your prefix, can be anything you want

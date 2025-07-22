@@ -2,3 +2,7 @@ node_modules/
 config.js
 package-lock.json
 development/
+*.zip
+*.tar.gz
+owoconfig.json
+web
