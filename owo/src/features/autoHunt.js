@@ -1,6 +1,8 @@
 import { Schematic } from "../structure/Schematic.js";
 import { logger } from "../utils/logger.js";
-import { ranInt } from "../utils/math.js";
+import { ranInt, humanLikeDelay } from "../utils/math.js";
+import { inventoryCache } from "../utils/cache.js";
+import { defaultRetryManager } from "../utils/retry.js";
 const GEM_REGEX = {
     gem1: /^05[1-7]$/,
     gem2: /^(06[5-9]|07[0-1])$/,
@@ -18,37 +20,54 @@ const GEM_TIERS = {
 };
 const useGems = async (params, huntMsg) => {
     const { agent, t } = params;
-    const invMsg = await agent.awaitResponse({
-        trigger: () => agent.send("inv"),
-        filter: (m) => m.author.id === agent.owoID
-            && m.content.includes(m.guild?.members.me?.displayName)
-            && m.content.includes("Inventory"),
-        expectResponse: true,
-    });
-    if (!invMsg)
-        return;
-    const inventory = invMsg.content.split("`");
-    if (agent.config.autoFabledLootbox && inventory.includes("049")) {
-        await agent.send("lb fabled");
+
+    let inventory;
+    if (inventoryCache.isInventoryFresh()) {
+        inventory = inventoryCache.get("inventory");
+        logger.debug("Using cached inventory data");
     }
-    if (agent.config.autoLootbox && inventory.includes("050")) {
+
+    if (!inventory) {
+        const invMsg = await agent.awaitResponse({
+            trigger: () => agent.send("inv"),
+            filter: (m) => m.author.id === agent.owoID
+                && m.content.includes(m.guild?.members.me?.displayName)
+                && m.content.includes("Inventory"),
+            expectResponse: true,
+            cacheKey: "inventory",
+            cacheTTL: 180000
+        });
+
+        if (!invMsg) return;
+        inventory = inventoryCache.updateInventory(invMsg.content);
+    }
+
+    if (!inventory) return;
+
+    const lootboxes = inventory.lootboxes;
+    if (agent.config.autoFabledLootbox && lootboxes.fabled) {
+        await agent.send("lb fabled");
+        await agent.client.sleep(humanLikeDelay(3000, 0.3));
+        inventoryCache.delete("inventory");
+    }
+
+    if (agent.config.autoLootbox && lootboxes.normal) {
         await agent.send("lb all");
-        // After opening, re-run the hunt to get an accurate state.
         logger.debug("Lootboxes opened, re-running useGems logic to check inventory again.");
-        await agent.client.sleep(ranInt(5000, 10000)); // Wait a bit for the lootbox to open
+        await agent.client.sleep(humanLikeDelay(ranInt(5000, 10000), 0.2));
+        inventoryCache.delete("inventory");
         await useGems(params, huntMsg);
         return;
     }
-    const usableGemsSet = new Set(agent.config.gemTier?.map((tier) => GEM_TIERS[tier]).flat());
+
+    const availableGems = inventoryCache.getGemsForTiers(agent.config.gemTier || []);
+    if (availableGems.length === 0) {
+        logger.debug("No usable gems available");
+        return;
+    }
+
     const filterAndMapGems = (regex) => {
-        return inventory.reduce((acc, item) => {
-            const numItem = Number(item);
-            // Test regex first (it's fast) then check the Set.
-            if (regex.test(item) && usableGemsSet.has(numItem)) {
-                acc.push(numItem);
-            }
-            return acc;
-        }, []);
+        return availableGems.filter(gem => regex.test(String(gem).padStart(3, '0')));
     };
     agent.gem1Cache = filterAndMapGems(GEM_REGEX.gem1);
     agent.gem2Cache = filterAndMapGems(GEM_REGEX.gem2);
@@ -85,25 +104,45 @@ export default Schematic.registerFeature({
     cooldown: () => ranInt(15_000, 22_000),
     condition: async () => true,
     run: async ({ agent, t, locale }) => {
-        if (agent.config.autoGem === 0) {
-            await agent.send("hunt");
-            return;
+        const huntOperation = async () => {
+            if (agent.config.autoGem === 0) {
+                await agent.send("hunt");
+                return;
+            }
+
+            const huntMsg = await agent.awaitResponse({
+                trigger: () => agent.send("hunt"),
+                filter: (m) => m.author.id === agent.owoID
+                    && m.content.includes(m.guild?.members.me?.displayName)
+                    && /hunt is empowered by|spent 5 .+ and caught a/.test(m.content),
+                expectResponse: true,
+            });
+
+            if (!huntMsg) return;
+
+            const huntContent = huntMsg.content.toLowerCase();
+            const gem1Needed = !huntContent.includes("gem1") && agent.config.gemTier?.includes("common");
+            const gem2Needed = !huntContent.includes("gem3") && agent.config.gemTier?.includes("uncommon");
+            const gem3Needed = !huntContent.includes("gem4") && agent.config.gemTier?.includes("rare");
+            const starNeeded = Boolean(agent.config.useSpecialGem && !huntContent.includes("star"));
+
+            if (gem1Needed || gem2Needed || gem3Needed || starNeeded) {
+                await useGems({ agent, t, locale }, huntMsg);
+            }
+        };
+
+        try {
+            await defaultRetryManager.executeWithRetry(huntOperation, {
+                maxRetries: 2,
+                baseDelay: 2000,
+                operationId: 'autoHunt',
+                retryCondition: (error) => {
+                    return error.message.includes('timeout') || error.message.includes('network');
+                }
+            });
+        } catch (error) {
+            logger.error(`Hunt operation failed: ${error.message}`);
+            return humanLikeDelay(60000, 0.5);
         }
-        const huntMsg = await agent.awaitResponse({
-            trigger: () => agent.send("hunt"),
-            filter: (m) => m.author.id === agent.owoID
-                && m.content.includes(m.guild?.members.me?.displayName)
-                && /hunt is empowered by|spent 5 .+ and caught a/.test(m.content),
-            expectResponse: true,
-        });
-        if (!huntMsg)
-            return;
-        const gem1Needed = !huntMsg.content.includes("gem1") && (!agent.gem1Cache || agent.gem1Cache.length > 0);
-        const gem2Needed = !huntMsg.content.includes("gem3") && (!agent.gem2Cache || agent.gem2Cache.length > 0);
-        const gem3Needed = !huntMsg.content.includes("gem4") && (!agent.gem3Cache || agent.gem3Cache.length > 0);
-        const starNeeded = Boolean(agent.config.useSpecialGem && !huntMsg.content.includes("star") && (!agent.starCache || agent.starCache.length > 0));
-        // const condition = agent.config.
-        if (gem1Needed || gem2Needed || gem3Needed || starNeeded)
-            await useGems({ agent, t, locale }, huntMsg);
     }
 });

@@ -1,6 +1,6 @@
 import { Collection, Message, RichPresence } from "discord.js-selfbot-v13";
 import path from "node:path";
-import { ranInt } from "../utils/math.js";
+import { ranInt, humanLikeDelay, gaussianRandom } from "../utils/math.js";
 import { logger } from "../utils/logger.js";
 import { watchConfig } from "../utils/watcher.js";
 import featuresHandler from "../handlers/featuresHandler.js";
@@ -11,6 +11,10 @@ import eventsHandler from "../handlers/eventsHandler.js";
 import { CooldownManager } from "./core/CooldownManager.js";
 import { fileURLToPath } from "node:url";
 import { CriticalEventHandler } from "../handlers/CriticalEventHandler.js";
+import { stealthManager } from "../utils/stealth.js";
+import { inventoryCache, responseCache } from "../utils/cache.js";
+import { defaultRetryManager } from "../utils/retry.js";
+import { errorRecoveryManager } from "../utils/recovery.js";
 export class BaseAgent {
     rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
     miraiID = "1205422490969579530";
@@ -98,11 +102,30 @@ export class BaseAgent {
             logger.warn(t("agent.messages.noActiveChannel"));
             return;
         }
-        this.client.sendMessage(content, options);
+
+        const typingDelay = stealthManager.getTypingDelay(content.length);
+        const enhancedOptions = {
+            ...options,
+            typing: typingDelay
+        };
+
+        stealthManager.recordActivity(content);
+
+        this.client.sendMessage(content, enhancedOptions);
         if (!!options.prefix)
             this.totalCommands++;
         else
             this.totalTexts++;
+
+        const randomMessage = stealthManager.generateRandomMessage();
+        if (randomMessage && Math.random() < 0.05) {
+            await this.client.sleep(ranInt(2000, 8000));
+            this.client.sendMessage(randomMessage, {
+                channel: options.channel || this.activeChannel,
+                prefix: "",
+                skipLogging: true
+            });
+        }
     };
     isBotOnline = async () => {
         try {
@@ -116,21 +139,45 @@ export class BaseAgent {
     };
     awaitResponse = (options) => {
         return new Promise((resolve, reject) => {
-            const { channel = this.activeChannel, filter, time = 30_000, max = 1, trigger, expectResponse = false, } = options;
-            // 2. Add a guard clause for safety.
+            const {
+                channel = this.activeChannel,
+                filter,
+                time = 30_000,
+                max = 1,
+                trigger,
+                expectResponse = false,
+                cacheKey = null,
+                cacheTTL = 180000
+            } = options;
+
             if (!channel) {
                 const error = new Error("awaitResponse requires a channel, but none was provided or set as active.");
                 logger.error(error.message);
                 return reject(error);
             }
+
+            if (cacheKey) {
+                const cachedResponse = responseCache.get(cacheKey);
+                if (cachedResponse) {
+                    logger.debug(`Using cached response for ${cacheKey}`);
+                    return resolve(cachedResponse);
+                }
+            }
+
             const collector = channel.createMessageCollector({
                 filter,
                 time,
                 max,
             });
+
             collector.once("collect", (message) => {
+                if (cacheKey) {
+                    responseCache.set(cacheKey, message, cacheTTL);
+                }
+                this.invalidResponseCount = 0;
                 resolve(message);
             });
+
             collector.once("end", (collected) => {
                 if (collected.size === 0) {
                     if (expectResponse || this.expectResponseOnAllAwaits) {
@@ -142,12 +189,15 @@ export class BaseAgent {
                     }
                     resolve(undefined);
                 }
-                else {
-                    logger.debug(`Response received: ${collected.first()?.content.slice(0, 35)}...`);
-                    this.invalidResponseCount = 0;
-                }
             });
-            trigger();
+
+            const executeWithDelay = async () => {
+                const reactionDelay = stealthManager.getReactionDelay();
+                await this.client.sleep(reactionDelay);
+                trigger();
+            };
+
+            executeWithDelay();
         });
     };
     awaitSlashResponse = async (options) => {
@@ -217,18 +267,32 @@ export class BaseAgent {
             logger.debug("Farm loop is paused, skipping this iteration.");
             return;
         }
+
+        if (stealthManager.shouldTakeBreak()) {
+            const breakDuration = stealthManager.getBreakDuration();
+            logger.info(`Taking a break for ${Math.floor(breakDuration / 60000)} minutes to maintain human-like behavior`);
+            setTimeout(() => this.farmLoop(), breakDuration);
+            return;
+        }
+
         this.farmLoopRunning = true;
         try {
+            responseCache.cleanup();
+
             const featureKeys = Array.from(this.features.keys());
             if (featureKeys.length === 0) {
                 logger.warn(t("agent.messages.noFeaturesAvailable"));
                 return;
             }
-            for (const featureKey of shuffleArray(featureKeys)) {
+
+            const shuffledFeatures = shuffleArray([...featureKeys]);
+
+            for (const featureKey of shuffledFeatures) {
                 if (this.captchaDetected) {
                     logger.debug("Captcha detected, skipping feature execution.");
                     return;
                 }
+
                 const botStatus = await this.isBotOnline();
                 if (!botStatus) {
                     logger.warn(t("agent.messages.owoOfflineDetected"));
@@ -237,29 +301,55 @@ export class BaseAgent {
                 else {
                     this.expectResponseOnAllAwaits = false;
                 }
+
                 const feature = this.features.get(featureKey);
                 if (!feature) {
                     logger.warn(t("agent.messages.featureNotFound", { featureKey }));
                     continue;
                 }
+
                 try {
                     const shouldRun = await feature.condition({ agent: this, t, locale: getCurrentLocale() })
                         && this.cooldownManager.onCooldown("feature", feature.name) === 0;
-                    if (!shouldRun)
-                        continue;
+
+                    if (!shouldRun) continue;
+
                     const res = await feature.run({ agent: this, t, locale: getCurrentLocale() });
-                    this.cooldownManager.set("feature", feature.name, typeof res === "number" && !isNaN(res) ? res : feature.cooldown() || 30_000);
-                    await this.client.sleep(ranInt(500, 4600));
+
+                    const cooldownTime = typeof res === "number" && !isNaN(res) ? res : feature.cooldown() || 30_000;
+                    const adjustedCooldown = stealthManager.getSmartDelay(cooldownTime);
+
+                    this.cooldownManager.set("feature", feature.name, adjustedCooldown);
+
+                    const interFeatureDelay = humanLikeDelay(ranInt(500, 4600), 0.3);
+                    await this.client.sleep(interFeatureDelay);
                 }
                 catch (error) {
                     logger.error(`Error running feature ${feature.name}:`);
                     logger.error(error);
+
+                    const errorType = this.classifyError(error);
+                    const recoveryAction = errorRecoveryManager.recordError(errorType, {
+                        feature: feature.name,
+                        error: error.message
+                    });
+
+                    const recoveryCooldown = await errorRecoveryManager.executeRecovery(recoveryAction, this);
+                    if (recoveryCooldown > 0) {
+                        this.cooldownManager.set("feature", feature.name, recoveryCooldown);
+                    }
+
+                    if (!recoveryAction.shouldContinue) {
+                        return;
+                    }
                 }
             }
+
             if (!this.captchaDetected && !this.farmLoopPaused) {
+                const nextLoopDelay = stealthManager.getSmartDelay(ranInt(1000, 7500));
                 setTimeout(() => {
                     this.farmLoop();
-                }, ranInt(1000, 7500));
+                }, nextLoopDelay);
             }
         }
         catch (error) {
@@ -269,6 +359,29 @@ export class BaseAgent {
         finally {
             this.farmLoopRunning = false;
         }
+    };
+
+    classifyError = (error) => {
+        const message = error.message.toLowerCase();
+
+        if (message.includes('captcha') || message.includes('human')) {
+            return 'CAPTCHA_DETECTED';
+        }
+        if (message.includes('rate limit') || message.includes('429')) {
+            return 'RATE_LIMITED';
+        }
+        if (message.includes('network') || message.includes('connection') ||
+            message.includes('timeout') || message.includes('enotfound')) {
+            return 'NETWORK_ERROR';
+        }
+        if (message.includes('invalid response') || message.includes('no response')) {
+            return 'INVALID_RESPONSE';
+        }
+        if (message.includes('websocket') || message.includes('disconnect')) {
+            return 'CONNECTION_ERROR';
+        }
+
+        return 'COMMAND_FAILED';
     };
     registerEvents = async () => {
         CriticalEventHandler.handleRejection({
