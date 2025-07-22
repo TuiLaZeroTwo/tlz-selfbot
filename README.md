@@ -2,7 +2,8 @@
 a simple selfbot for discord
 
 ## How to use
-rename the config.js.example to config.js, there's guide in the file
+- rename the config.js.example to config.js, there's guide in the file
+- install [this](https://github.com/Kyou-Izumi/advanced-discord-owo-tool-farm) then open cmd, npm start to make the config, cmd again and npm start then choose the account -> export config, copy the [yourname].json to the selfbot folder, change the owo section in config.json
 
 ## Edit website?
 you can edit whatever you want the 
