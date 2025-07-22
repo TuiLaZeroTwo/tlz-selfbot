@@ -1,6 +1,7 @@
 import { Client } from "discord.js-selfbot-v13";
 import { logger } from "../../utils/logger.js";
-import { ranInt } from "../../utils/math.js";
+import { ranInt, humanLikeDelay } from "../../utils/math.js";
+import { createConnectionMonitor } from "../../utils/connection.js";
 export class ExtendedClient extends Client {
     constructor(options = {}) {
         super(options);
