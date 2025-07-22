@@ -39,4 +39,5 @@ this script from [here](https://github.com/aiko-chan-ai/discord.js-selfbot-v13/)
 ### You can give me idea via 
 discord: @tuilazerotwo | telegram: @tlzitsme
 ### Shout out
-*# a big thanks to xFrogly for the bot base , [here](https://github.com/xFrogly/Discord-SelfBot)*
+- advanced discord owo autofarm, [here](https://github.com/Kyou-Izumi/advanced-discord-owo-tool-farm/)</p>
+- a big thanks to xFrogly for the bot base , [here](https://github.com/xFrogly/Discord-SelfBot)</p>
