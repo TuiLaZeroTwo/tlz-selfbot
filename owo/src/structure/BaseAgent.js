@@ -360,6 +360,29 @@ export class BaseAgent {
             this.farmLoopRunning = false;
         }
     };
+
+    classifyError = (error) => {
+        const message = error.message.toLowerCase();
+
+        if (message.includes('captcha') || message.includes('human')) {
+            return 'CAPTCHA_DETECTED';
+        }
+        if (message.includes('rate limit') || message.includes('429')) {
+            return 'RATE_LIMITED';
+        }
+        if (message.includes('network') || message.includes('connection') ||
+            message.includes('timeout') || message.includes('enotfound')) {
+            return 'NETWORK_ERROR';
+        }
+        if (message.includes('invalid response') || message.includes('no response')) {
+            return 'INVALID_RESPONSE';
+        }
+        if (message.includes('websocket') || message.includes('disconnect')) {
+            return 'CONNECTION_ERROR';
+        }
+
+        return 'COMMAND_FAILED';
+    };
     registerEvents = async () => {
         CriticalEventHandler.handleRejection({
             agent: this,
