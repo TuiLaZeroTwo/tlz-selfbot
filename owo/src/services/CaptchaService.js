@@ -8,6 +8,8 @@ import { CookieJar } from "tough-cookie";
 import os from "node:os";
 import { NORMALIZE_REGEX } from "../typings/constants.js";
 import { NotificationService } from "./NotificationService.js";
+import { defaultRetryManager } from "../utils/retry.js";
+import { humanLikeDelay, exponentialBackoff } from "../utils/math.js";
 /**
  * Maps Node.js os.platform() output to sec-ch-ua-platform values.
  */
