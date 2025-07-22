@@ -314,11 +314,6 @@ export class BaseAgent {
 
                     if (!shouldRun) continue;
 
-                    const smartDelay = stealthManager.getSmartDelay(
-                        stealthManager.getCommandDelay(feature.name),
-                        { feature: feature.name }
-                    );
-
                     const res = await feature.run({ agent: this, t, locale: getCurrentLocale() });
 
                     const cooldownTime = typeof res === "number" && !isNaN(res) ? res : feature.cooldown() || 30_000;
@@ -333,8 +328,20 @@ export class BaseAgent {
                     logger.error(`Error running feature ${feature.name}:`);
                     logger.error(error);
 
-                    const errorCooldown = stealthManager.getSmartDelay(60000, { isRetry: true });
-                    this.cooldownManager.set("feature", feature.name, errorCooldown);
+                    const errorType = this.classifyError(error);
+                    const recoveryAction = errorRecoveryManager.recordError(errorType, {
+                        feature: feature.name,
+                        error: error.message
+                    });
+
+                    const recoveryCooldown = await errorRecoveryManager.executeRecovery(recoveryAction, this);
+                    if (recoveryCooldown > 0) {
+                        this.cooldownManager.set("feature", feature.name, recoveryCooldown);
+                    }
+
+                    if (!recoveryAction.shouldContinue) {
+                        return;
+                    }
                 }
             }
 
