@@ -11,6 +11,7 @@ const qrCommand = require('./commands/qrCommand')
 const helpCommand = require('./commands/helpCommand');
 const pingCommand = require('./commands/pingCommand');
 const genCommand = require('./commands/genCommand');
+const snipeCommand = require('./commands/snipeCommand');
 //Utilities
 const logger = require('./utils/logger');
 //Managers
@@ -29,6 +30,7 @@ if (config.ping.enabled) pingCommand(client, config);
 if (config.help.enabled) helpCommand(client, config);
 if (config.userinfo.enabled) userinfoCommand(client, config);
 if (config.gen.enabled) genCommand(client, config);
+if (config.snipe.enabled) snipeCommand(client, config);
 //Managers
 presenceManager(client, config);
 

@@ -11,32 +11,10 @@ module.exports = (client, config) => {
         throw new Error('Invalid voice channel');
       }
 
-      const findAvailableVoiceChannel = (channel) => {
-        if (channel.members.size < config.voice.max_members) {
-          return channel;
-        }
-
-        for (const [id, member] of channel.members) {
-          if (member.voice.channel) {
-            const availableChannel = findAvailableVoiceChannel(member.voice.channel);
-            if (availableChannel) {
-              return availableChannel;
-            }
-          }
-        }
-
-        return null;
-      };
-
-      const availableChannel = findAvailableVoiceChannel(channel);
-      if (!availableChannel) {
-        throw new Error('No available voice channel found');
-      }
-
       connection = joinVoiceChannel({
-        channelId: availableChannel.id,
-        guildId: availableChannel.guild.id,
-        adapterCreator: availableChannel.guild.voiceAdapterCreator,
+        channelId: channel.id,
+        guildId: channel.guild.id,
+        adapterCreator: channel.guild.voiceAdapterCreator,
         selfDeaf: config.voice.self_deaf,
         selfMute: config.voice.self_mute
       });
