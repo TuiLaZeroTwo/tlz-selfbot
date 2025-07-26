@@ -3,7 +3,6 @@ const config = require('./config');
 //Handlers
 const voiceHandler = require('./handlers/voiceHandler');
 const autoReactHandler = require('./handlers/autoReactHandler');
-const owoHandler = require('./handlers/owoHandler');
 //Commands
 const hoststatusCommand = require('./commands/hoststatusCommand');
 const clearCommand = require('./commands/clearCommand');
@@ -22,7 +21,6 @@ const client = new Client({ checkUpdate: false });
 //Handlers
 if (config.voice.enabled) voiceHandler(client, config);
 if (config.auto_react.enabled) autoReactHandler(client, config);
-if (config.owo.enabled) owoHandler.init(client);
 //Commands
 if (config.qr.enabled) qrCommand(client, config);
 if (config.hoststatus.enabled) hoststatusCommand(client, config);

@@ -5,4 +5,4 @@ development/
 *.zip
 *.tar.gz
 owoconfig.json
-web
+logs/
