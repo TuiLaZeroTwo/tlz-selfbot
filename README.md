@@ -1,6 +1,6 @@
 # tlz-selfbot
 a simple selfbot for discord
-
+- support [discord](http://dsc.gg/tlz)
 ## How to use
 - rename the config.js.example to config.js, there's guide in the file
 - install [this](https://github.com/Kyou-Izumi/advanced-discord-owo-tool-farm) then open cmd, npm start to make the config, cmd again and npm start then choose the account -> export config, copy the [yourname].json to the selfbot folder, change the owo section in config.json
