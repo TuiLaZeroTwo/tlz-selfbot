@@ -1,56 +1,97 @@
-const logger = require('../utils/logger'); 
-const getRpcActivity = require('../utils/rpcUtil'); 
-const rotateStatus = require('../utils/rotatestatusUtil'); 
+const logger = require('../utils/logger');
+const getRpcActivity = require('../utils/rpcUtil');
+const rotateStatus = require('../utils/rotatestatusUtil');
+const monitor = require('../utils/monitor');
 
 let currentRpcActivity = null;
 let currentCustomStatusActivity = null;
-let clientInstance = null; 
+let clientInstance = null;
+let lastPresenceJSON = null;
+let updateTimeout = null;
+const DEBOUNCE_DELAY = 300;
+const WEATHER_REFRESH_INTERVAL = 15 * 60 * 1000;
 
 async function updateOverallPresence() {
-    if (!clientInstance || !clientInstance.user) { 
+    if (!clientInstance || !clientInstance.user) {
         logger.error('Client not ready or user not available to update presence.');
         return;
     }
-    const activities = [currentRpcActivity, currentCustomStatusActivity].filter(Boolean); // Filter out null activities
+    const activities = [currentRpcActivity, currentCustomStatusActivity].filter(Boolean);
 
-    if (activities.length === 0) { 
-        logger.warn('No activities to set. Clearing presence.');
-        try {
+    if (activities.length === 0) {
+        const emptyPresenceJSON = JSON.stringify([]);
 
-            await clientInstance.user.setPresence({ activities: [] }); 
-        } catch (e) {
-            logger.error('Failed to clear presence:', e);
+        if (lastPresenceJSON !== emptyPresenceJSON) {
+            logger.warn('No activities to set. Clearing presence.');
+            try {
+                await clientInstance.user.setPresence({ activities: [] });
+                lastPresenceJSON = emptyPresenceJSON;
+                monitor.incrementPresenceUpdates();
+            } catch (e) {
+                logger.error('Failed to clear presence:', e);
+            }
         }
         return;
     }
 
+    const newPresenceJSON = JSON.stringify(activities);
+    if (newPresenceJSON === lastPresenceJSON) {
+        logger.debug('Presence unchanged, skipping update');
+        return;
+    }
+
     try {
-        await clientInstance.user.setPresence({ activities: activities }); 
+        await clientInstance.user.setPresence({ activities: activities });
+        lastPresenceJSON = newPresenceJSON;
+        monitor.incrementPresenceUpdates();
+        logger.debug('Presence updated');
     } catch (error) {
         logger.error('Failed to set overall Discord presence:', error);
     }
 }
 
+function debouncedUpdatePresence() {
+    if (updateTimeout) {
+        clearTimeout(updateTimeout);
+    }
+
+    updateTimeout = setTimeout(() => {
+        updateOverallPresence();
+        updateTimeout = null;
+    }, DEBOUNCE_DELAY);
+}
+
 module.exports = async (client, config) => {
-    clientInstance = client; 
+    clientInstance = client;
 
     client.on('ready', async () => {
 
-        if (config.rpc.enabled) { 
+        if (config.rpc.enabled) {
             currentRpcActivity = await getRpcActivity(client, config);
             if (currentRpcActivity) {
                 logger.info('RPC activity is ready.');
             } else {
                 logger.warn('RPC is enabled but could not create RPC activity.');
             }
+
+            if (config.rpc.mode === 'weather') {
+                setInterval(async () => {
+                    logger.debug('Refreshing weather data...');
+                    const newRpcActivity = await getRpcActivity(client, config);
+                    if (newRpcActivity) {
+                        currentRpcActivity = newRpcActivity;
+                        await updateOverallPresence();
+                    }
+                }, WEATHER_REFRESH_INTERVAL);
+            }
         }
 
-        if (config.rotatestatus.enabled) { 
+        if (config.rotatestatus.enabled) {
             rotateStatus.init(config, () => {
                 currentCustomStatusActivity = rotateStatus.getCurrentStatus(client);
-                updateOverallPresence(); 
+                debouncedUpdatePresence();
             });
-            currentCustomStatusActivity = rotateStatus.getCurrentStatus(client); 
+            currentCustomStatusActivity = rotateStatus.getCurrentStatus(client);
             if (currentCustomStatusActivity) {
                 logger.info('Rotating status is ready.');
             } else {
@@ -58,8 +99,8 @@ module.exports = async (client, config) => {
             }
         } else {
             logger.info('Rotating status is not enabled in config.');
-            currentCustomStatusActivity = null; 
-            rotateStatus.stop(); 
+            currentCustomStatusActivity = null;
+            rotateStatus.stop();
         }
         await updateOverallPresence();
 
@@ -68,7 +109,12 @@ module.exports = async (client, config) => {
 
     client.on('disconnect', () => {
         logger.warn('Client disconnected. Stopping rotating status interval.');
-        rotateStatus.stop(); 
+        rotateStatus.stop();
+
+        if (updateTimeout) {
+            clearTimeout(updateTimeout);
+            updateTimeout = null;
+        }
     });
 
     client.on('reconnecting', () => {

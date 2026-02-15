@@ -1,17 +1,14 @@
 const { CustomStatus } = require('discord.js-selfbot-v13');
 const logger = require('./logger');
 
-let messages = [];
-let emojis = [];
-let currentIndex = 0;
-let intervalId = null; 
+let cachedStatuses = [];
+let intervalId = null;
 let updateCallback = null;
 
 function init(config, callback) {
-
-    messages = Object.values(config.rotatestatus.message || {});
-    emojis = Object.values(config.rotatestatus.emoji || {});
-    currentIndex = 0; 
+    const messages = Object.values(config.rotatestatus.message || {});
+    const emojis = Object.values(config.rotatestatus.emoji || {});
+    currentIndex = 0;
     updateCallback = callback;
 
     if (intervalId) {
@@ -21,33 +18,46 @@ function init(config, callback) {
 
     if (messages.length === 0 && emojis.length === 0) {
         logger.warn('No custom status messages or emojis configured. Rotating status will not start.');
+        cachedStatuses = [];
         return;
     }
 
+    cachedStatuses = [];
+    const maxLength = Math.max(messages.length, emojis.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        const message = messages[i] || messages[messages.length - 1];
+        const emoji = emojis[i] || emojis[emojis.length - 1];
+
+        cachedStatuses.push({
+            message: message || null,
+            emoji: emoji || null
+        });
+    }
+
+    logger.debug(`Pre-cached ${cachedStatuses.length} status objects`);
 
     intervalId = setInterval(() => {
-        currentIndex = (currentIndex + 1) % messages.length;
+        currentIndex = (currentIndex + 1) % cachedStatuses.length;
         if (updateCallback) {
-            updateCallback(); 
+            updateCallback();
         }
-    }, config.rotatestatus.interval); 
+    }, config.rotatestatus.interval);
 }
 
 function getCurrentStatus(client) {
-    if (messages.length === 0 && emojis.length === 0) {
+    if (cachedStatuses.length === 0) {
         return null;
     }
 
-    const currentMessage = messages[currentIndex];
-    const currentEmoji = emojis[currentIndex];
-
+    const cached = cachedStatuses[currentIndex];
     const customStatusBuilder = new CustomStatus(client);
 
-    if (currentEmoji) {
-        customStatusBuilder.setEmoji(currentEmoji);
+    if (cached.emoji) {
+        customStatusBuilder.setEmoji(cached.emoji);
     }
-    if (currentMessage) {
-        customStatusBuilder.setState(currentMessage);
+    if (cached.message) {
+        customStatusBuilder.setState(cached.message);
     }
 
     return customStatusBuilder.toJSON();

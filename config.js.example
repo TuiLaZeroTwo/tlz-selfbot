@@ -1,93 +1,89 @@
 module.exports = {
-  token: "", //put your token here
-  ownerID: "",// put your user id here
-  prefix: "-", // your prefix, can be anything you want
-  userinfo: {
-    "enabled": true
-  },
-  help: {
-    enabled: true, 
-  },
-  ping: {
-    enabled: true,
-  },
-  clear: {
-    enabled: true,
-  },
-  hoststatus: {
-    enabled: true,
-  },
-  rotatestatus: {
-    enabled: true,
-    interval: 10000, // 10 seconds
-    emoji: {
-      "0": "💬",
-      "1": "🌟",
-      "2": "🔥",
-      "3": "❤️",
-      "4": "😊",
-      "5": "😎",
-      "6": "🤖",
-      "7": "🎉",
-      "8": "🚀",
-      "9": "💡",
-      "10": "🌈",
-      "11": "✨"
-    },
-    message: {
-      "0": "i love lan thi",
-      "1": "fall in love with cat/ntwlie",
-      "2": "be kind to others",
-      "3": "help those in need",
-      "4": "spread positivity",
-      "5": "make the world a better place",
-      "6": "be the change you want to see",
-      "7": "embrace diversity",
-      "8": "respect all beings",
-      "9": "live and let live",
-      "10": "find joy in small things",
-      "11": "appreciate the beauty around you",
-    },
-  },
-  rpc: {
-    enabled: true,
-    mode: "", // "weather", "rpc", "none"
-    name: "tlz services",
-    url: "twitch.tv/tlzytb",
-    type: 0,
-    application_id: "1204053320629624893", // you can skip this
-    client_id: "1204053320629624893", // idk wtf to do with this
-    details: "be your own self",
-    state: "but don't be a jerk",
-    large_image: "https://cdn.discordapp.com/banners/339831176762097664/61f0dccaafa3566685c315925581e5d5.png?size=4096", //only link because im fixing the app id
-    large_image_text: "Cool huh",
-    small_image: "https://cdn.discordapp.com/avatars/339831176762097664/f8204747043c075a9a8e9a2375565330.png?size=512",  //only link because im fixing the app id
-    small_image_text: "Powered by tlz",
-    buttons: {
-      name1: "Free Hosting",
-      url1: "https://dsc.gg/xmxd",
-      name2: "GitHub Profile",
-      url2: "https://github.com/tuilazerotwo"
-    }
-  },
+  // Discord selfbot token
+  token: "YOUR_DISCORD_TOKEN_HERE",
+  
+  // Owner ID (your Discord user ID)
+  ownerID: "YOUR_USER_ID_HERE",
+  
+  // Command prefix
+  prefix: ".",
+  
+  // ==================== QR COMMAND ====================
+  // Generate VietQR payment codes
   qr: {
     enabled: true,
-    addrinfo: "hhlong209",
-    bankid: "970422",
-    style: "compact2",
-    accountname: "HUYNH HUU LONG"
+    bankid: "ICB",                     // Bank code (ICB, VCB, ACB, etc.) - Check https://api.vietqr.io/v2/banks
+    addrinfo: "0123456789",            // Your bank account number
+    accountname: "NGUYEN VAN A",       // Account holder name
+    style: "compact2"                  // QR style: compact, compact2, print, or qr_only
   },
+  
+  // ==================== VOICE CHANNEL ====================
+  // Auto-join and hang in voice channel
   voice: {
-    enabled: false,
-    channel_id: "1391926171251380305", //put your voice channel id here
-    self_deaf: false,
-    self_mute: true
+    enabled: true,
+    channel_id: "YOUR_VOICE_CHANNEL_ID",  // Voice channel ID to join
+    self_mute: true,                       // Auto mute microphone
+    self_deaf: true                        // Auto deafen
   },
-  auto_react: {
-    enabled: false,
-    reactions: {
-      "1215484798269923399": ["🔥", "❤️"],
-      "1368980718893662258": ["🔥", "❤️"]
+  
+  // ==================== RICH PRESENCE (RPC) ====================
+  // Custom Rich Presence activity
+  rpc: {
+    enabled: true,
+    mode: "rpc",  // Options: "rpc", "weather", or "none"
+    
+    // ===== RPC MODE SETTINGS =====
+    application_id: "YOUR_APPLICATION_ID",  // Discord Developer Portal app ID
+    type: 0,                                 // 0: Playing, 1: Streaming, 2: Listening, 3: Watching
+    name: "Custom Activity",
+    details: "Doing something cool",
+    state: "In the zone",
+    
+    // Images (use mp:attachments/IMAGE_ID or external URLs)
+    large_image: "mp:attachments/1234567890",
+    large_image_text: "Large image hover text",
+    small_image: "mp:attachments/0987654321",
+    small_image_text: "Small image hover text",
+    
+    // For Streaming (type: 1)
+    url: "https://twitch.tv/",
+    
+    // Buttons (max 2)
+    buttons: {
+      name1: "Visit Website",
+      url1: "https://example.com",
+      name2: "Join Discord",
+      url2: "https://discord.gg/example"
+    },
+    
+    // ===== WEATHER MODE SETTINGS =====
+    weather_location: "HaNoi",  // City name for wttr.in (empty for HaNoi default)
+    weather_images: {
+      weathericon: "mp:attachments/your_weather_icon_id"
+    }
+  },
+  
+  // ==================== ROTATING STATUS ====================
+  // Rotate custom status messages and emojis
+  rotatestatus: {
+    enabled: true,
+    interval: 10000,  // Rotation interval in milliseconds (10000 = 10 seconds)
+    
+    // Custom status messages (rotates through these)
+    message: {
+      1: "Coding in JavaScript 💻",
+      2: "Listening to music 🎵",
+      3: "Taking a break ☕",
+      4: "Gaming time 🎮"
+    },
+    
+    // Emojis for each status (must match message count or will cycle)
+    emoji: {
+      1: "💻",
+      2: "🎵",
+      3: "☕",
+      4: "🎮"
     }
   }
 };
