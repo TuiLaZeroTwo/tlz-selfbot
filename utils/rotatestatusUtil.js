@@ -35,8 +35,6 @@ function init(config, callback) {
         });
     }
 
-    logger.debug(`Pre-cached ${cachedStatuses.length} status objects`);
-
     intervalId = setInterval(() => {
         currentIndex = (currentIndex + 1) % cachedStatuses.length;
         if (updateCallback) {

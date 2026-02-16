@@ -22,7 +22,8 @@ module.exports = {
   // Auto-join and hang in voice channel
   voice: {
     enabled: true,
-    channel_id: "YOUR_VOICE_CHANNEL_ID",  // Voice channel ID to join
+    guild_id: "",                          // (Optional) Guild ID - leave empty to use first guild
+    channel_id: "YOUR_VOICE_CHANNEL_ID",   // Voice channel ID to join
     self_mute: true,                       // Auto mute microphone
     self_deaf: true                        // Auto deafen
   },

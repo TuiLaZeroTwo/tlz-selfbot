@@ -28,7 +28,6 @@ async function fetchBankCodes() {
         if (response.data && response.data.data) {
             cachedBankCodes = response.data.data.map(bank => bank.code);
             lastFetch = now;
-            logger.debug(`Fetched ${cachedBankCodes.length} bank codes from VietQR API`);
             return cachedBankCodes;
         }
     } catch (error) {

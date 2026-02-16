@@ -71,7 +71,6 @@ module.exports = (client, config) => {
         const cached = qrCache.get(cacheKey);
 
         if (cached && (Date.now() - cached.timestamp < QR_CACHE_TTL)) {
-          logger.debug('Using cached QR code');
           await message.channel.send({
             content: `💳 QR code cho ${amount.toLocaleString('vi-VN')} VND: (cached)`,
             files: [{
@@ -101,7 +100,6 @@ module.exports = (client, config) => {
         });
 
         monitor.incrementQrGenerated();
-        logger.debug(`QR generated: ${amount} VND`);
       }
     } catch (error) {
       logger.error(`Error in QR command: ${error.message}`);

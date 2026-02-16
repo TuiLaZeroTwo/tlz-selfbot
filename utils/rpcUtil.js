@@ -12,7 +12,6 @@ async function fetchWeatherData(location) {
     const now = Date.now();
 
     if (weatherCache.data && (now - weatherCache.timestamp) < weatherCache.ttl) {
-        logger.debug('Using cached weather data');
         return weatherCache.data;
     }
 
@@ -34,7 +33,6 @@ async function fetchWeatherData(location) {
 
         weatherCache.data = weather;
         weatherCache.timestamp = now;
-        logger.debug('Weather data fetched and cached');
 
         return weather;
     } catch (error) {

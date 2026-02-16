@@ -36,7 +36,6 @@ async function updateOverallPresence() {
 
     const newPresenceJSON = JSON.stringify(activities);
     if (newPresenceJSON === lastPresenceJSON) {
-        logger.debug('Presence unchanged, skipping update');
         return;
     }
 
@@ -44,7 +43,6 @@ async function updateOverallPresence() {
         await clientInstance.user.setPresence({ activities: activities });
         lastPresenceJSON = newPresenceJSON;
         monitor.incrementPresenceUpdates();
-        logger.debug('Presence updated');
     } catch (error) {
         logger.error('Failed to set overall Discord presence:', error);
     }
@@ -76,7 +74,6 @@ module.exports = async (client, config) => {
 
             if (config.rpc.mode === 'weather') {
                 setInterval(async () => {
-                    logger.debug('Refreshing weather data...');
                     const newRpcActivity = await getRpcActivity(client, config);
                     if (newRpcActivity) {
                         currentRpcActivity = newRpcActivity;

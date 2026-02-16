@@ -34,7 +34,6 @@ module.exports = (client, config) => {
 
                 monitor.incrementStatsUsed();
                 await message.channel.send(statsMessage);
-                logger.debug('Stats command executed');
             }
         } catch (error) {
             logger.error(`Error in stats command: ${error.message}`);
